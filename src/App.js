@@ -15,7 +15,7 @@ function App() {
       });
     });
 
-  },[msn])
+  },[])
 
 
   return (
