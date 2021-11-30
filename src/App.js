@@ -6,7 +6,7 @@ function App() {
   const [msn, setMsn] =useState ([])
   
   useEffect (() => {
-    firestore.collection("tweets")
+    firestore.collection("Tweets-s4")
     .get()
     .then ((snapshot) => {
       snapshot.forEach((doc) => {
