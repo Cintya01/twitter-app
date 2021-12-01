@@ -9,6 +9,23 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.header-cont{
+  justify-content: center;
+  width: 100%;
+  height: 52px;
+  background: #250C23;
+}
+.header-nav-cont{
+  justify-content: space-around;
+  width: 605px;
+  height:52px;
+  border: 1px solid white;
+}
+.flex {
+  display: flex;
+}
+
 /* 
 .App-logo {
   height: 40vmin;
