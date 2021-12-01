@@ -12,12 +12,27 @@
   width: 100%;
   height: 52px;
   background: #250C23;
+  
 }
+
 .header-nav-cont{
+  box-sizing: border-box;
   justify-content: space-around;
+  align-items: center;
   width: 605px;
   height:52px;
-  border: 1px solid white;
+  padding: 10px;
+  
+}
+
+.logo-cont-header{
+  width:45px;
+  height: 27px;
+}
+
+.devs-header {
+  width:159px;
+  height: 15px;
 }
 .flex {
   display: flex;
@@ -38,6 +53,7 @@ textarea {
   overflow: auto;
   resize: none;
   border: none;
+  color: white;
 }  
 
 .tweet-cont{

@@ -1,10 +1,13 @@
+import logo from "../src/Logo_Alone.svg"
+import name from "../src/Name_Logo.svg"
+
 function Header() {
     return (
         <div className="header-cont flex">
             <nav className="header-nav-cont flex">
                 <div>img user</div>
-                <div>logo</div>
-                <div>nombre</div>
+                <img className="logo-cont-header" src={logo} alt="Logo"/>
+                <img className="devs-header" src={name} alt="DEVSUNITED"/>
             </nav>
         </div>
     )
