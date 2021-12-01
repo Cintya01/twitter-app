@@ -23,31 +23,34 @@
   display: flex;
 }
 
-.form-cont {
+ .form-cont {
   height: 218px;
   width: 100%;
-  background-color: red;
+  background-color: #150714;
   justify-content: center;
   padding: 15px;
 }
 
-.formulario{
-width: 500px;
-height: 113px;
-top: 72px;
-background: #2F112D;
-}
+textarea {
+  width: 500px;
+  height: 113px;
+  background: #2F112D;
+  overflow: auto;
+  resize: none;
+  border: none;
+}  
 
 .tweet-cont{
   align-items: center;
-  border: 1px solid white;
+  border: 1px solid red;
   flex-flow: column nowrap;
 }
 
 .tweet-cont-ind{
   width: 605px;
   height: auto;
-  border: 1px solid white;
+  border-bottom: 2px solid #60265B;
+  padding: 20px;
 }
 
 

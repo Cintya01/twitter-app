@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">  
       <Header/>
-       <Twitter 
+      <Twitter 
           tweets={msn} 
           setTweets={setMsn}
           tweet={tweet}

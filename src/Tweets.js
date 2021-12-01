@@ -35,14 +35,14 @@ function Twitter(props) {
       return (
         <div>
             <div className="form-cont flex">
-                <form className="formulario">
+                <form>
                     <textarea
                         name="tweet"
                         onChange={handleChange}
                         value= {props.tweet.tweet}
                         cols="30"
                         rows= "5"
-                        placeholder="escribe un tweet..."
+                        placeholder="What's Happening?..."
                 />
                 <div>
                     <input 
