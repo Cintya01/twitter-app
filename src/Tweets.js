@@ -30,7 +30,22 @@ function Twitter(props) {
             props.setTweet(newTweet);
         };
 
-        console.log(props.tweet)
+        const sendTweet = (e) => {
+            e.preventDefault();
+        let sendTweet = firestore.collection("Tweets-s4").add(props.tweet)
+        let documentSolicitude = sendTweet.then((docRef) => {
+            return docRef.get();
+        });
+        documentSolicitude.then((doc) => {
+            let newTweet ={
+                tweet: doc.data().tweet,
+                autor: doc.data().autor,
+                id: doc.id
+            };
+            props.setTweet([newTweet,...props.tweets])
+        })
+
+        };
 
       return (
         <div>
@@ -53,7 +68,7 @@ function Twitter(props) {
                         placeholder="persona autora"
                      />
                 </div>
-                    <button> Enviar Tweet </button>
+                    <button onClick={sendTweet}> Enviar Tweet </button>
                 </form>
             </div>
          <div className="tweet-cont flex">   
