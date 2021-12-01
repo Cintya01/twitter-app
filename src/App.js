@@ -1,29 +1,16 @@
 import './App.css';
-import {firestore} from './firebase';
-import React, {useEffect, useState} from 'react';
+// import {firestore} from './firebase';
+import React, { useState} from 'react';
+import Twitter from './Tweets';
 
 function App() {
+
   const [msn, setMsn] =useState ([])
   
-  useEffect (() => {
-    firestore.collection("Tweets-s4")
-    .get()
-    .then ((snapshot) => {
-      snapshot.forEach((doc) => {
-        console.log(doc.data());
-        setMsn(doc.data());
-      });
-    });
-
-  },[])
-
-
   return (
-    <div>
-      <header>
-         <p>{msn.tweet}</p>
-      </header>
-    </div>
+    <div className="App">      
+       <Twitter tweets={msn} setTweets={setMsn}/>
+     </div>
   );
 }
 
