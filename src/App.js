@@ -6,12 +6,18 @@ import Header from './Header';
 
 function App() {
 
-  const [msn, setMsn] =useState ([])
+  const [msn, setMsn] = useState ([]);
+  const [tweet, setTweet] = useState({ tweet:"", autor:""});
   
   return (
     <div className="App">  
       <Header/>
-       <Twitter tweets={msn} setTweets={setMsn}/>
+       <Twitter 
+          tweets={msn} 
+          setTweets={setMsn}
+          tweet={tweet}
+          setTweet={setTweet}/>
+          
      </div>
   );
 }

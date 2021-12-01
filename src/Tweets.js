@@ -22,17 +22,50 @@ function Twitter(props) {
           });
         },[])
 
+        const handleChange = (e) =>{
+            let newTweet = {
+                ...props.tweet,
+                [e.target.name]: e.target.value
+            };
+            props.setTweet(newTweet);
+        };
+
+        console.log(props.tweet)
+
       return (
         <div>
-           <h1>Tweets:</h1>
+            <div className="form-cont flex">
+                <form className="formulario">
+                    <textarea
+                        name="tweet"
+                        onChange={handleChange}
+                        value= {props.tweet.tweet}
+                        cols="30"
+                        rows= "5"
+                        placeholder="escribe un tweet..."
+                />
+                <div>
+                    <input 
+                        name="autor"
+                        onChange={handleChange}
+                        value= {props.tweet.autor}
+                        type="text"
+                        placeholder="persona autora"
+                     />
+                </div>
+                    <button> Enviar Tweet </button>
+                </form>
+            </div>
+         <div className="tweet-cont flex">   
             {props.tweets.map((tweet) => {
-               return (
-                <div key={tweet.id}>
-                  <h1>{tweet.tweet}</h1>
-                  <h4>por: {tweet.autor}</h4>
+               return (                
+                <div className="tweet-cont-ind" key={tweet.id}>
+                  <p>{tweet.tweet}</p>
+                  <span>por: {tweet.autor}</span>
                 </div>
               );
             })}
+            </div>
         </div>
       );
 }
