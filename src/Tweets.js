@@ -67,8 +67,9 @@ function Twitter(props) {
                         type="text"
                         placeholder="persona autora"
                      />
-                </div>
-                    <button onClick={sendTweet}> Enviar Tweet </button>
+                
+                    <button className="btn-post silk-font" onClick={sendTweet}> POST </button>
+                    </div>
                 </form>
             </div>
          <div className="tweet-cont flex">   

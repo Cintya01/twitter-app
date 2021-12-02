@@ -1,5 +1,5 @@
-import logo from "../src/Logo_Alone.svg"
-import name from "../src/Name_Logo.svg"
+import logo from "../src/svg/Logo_Alone.svg"
+import name from "../src/svg/Name_Logo.svg"
 
 function Header() {
     return (
