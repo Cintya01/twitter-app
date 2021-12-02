@@ -47,6 +47,13 @@
   width:159px;
   height: 15px;
 }
+
+.profile-img-header{
+  width:33px;
+  height: 33px;
+  border: 2px solid yellow;
+  border-radius: 50px;
+}
 .flex {
   display: flex;
 }
@@ -77,9 +84,6 @@ textarea {
   text-align: center;
  }
 
-
-
-
 .tweet-cont{
   align-items: center;
   border: 1px solid red;
@@ -92,4 +96,17 @@ textarea {
   border-bottom: 2px solid #60265B;
   padding: 20px;
   font-family: 'Fira Code', monospace;
+}
+
+
+
+.delete {
+  width: 24px;
+height: 20px;
+}
+.profile-img{
+  width: 56px;
+  height: 56px;
+  border-radius: 50px;
+  margin-right: 10px;
 }
