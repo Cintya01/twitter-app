@@ -2,45 +2,111 @@
   text-align: center;
   background-color: #2E132C;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  color: white;
   align-items: center;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'Silkscreen';
+  src: url(../src/Fonts/slkscr.ttf);
+}
+
+.silk-font{
+  font-family: 'Silkscreen';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+}
+.header-cont{
+  margin: 0 auto;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  width: 100%;
+  height: 52px;
+  background: #250C23;
+  }
+
+.header-nav-cont{
+  box-sizing: border-box;
+  justify-content: space-around;
+  align-items: center;
+  width: 605px;
+  height:52px;
+  padding: 10px;
+  
+}
+
+.logo-cont-header{
+  width:45px;
+  height: 27px;
+}
+
+.devs-header {
+  width:159px;
+  height: 15px;
+}
+
+.profile-img-header{
+  width:33px;
+  height: 33px;
+  border: 2px solid yellow;
+  border-radius: 50px;
+}
+.flex {
+  display: flex;
+}
+
+ .form-cont {
+  height: 218px;
+  width: 100%;
+  background-color: #150714;
+  justify-content: center;
+  padding: 15px;
+}
+
+textarea {
+  width: 500px;
+  height: 113px;
+  background: #2F112D;
+  overflow: auto;
+  resize: none;
+  border: none;
   color: white;
 }
-/* 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #2E132C;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.btn-post{
+  Width: 102px;
+  Height: 35px;
+  background: #2F112D;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  text-align: center;
+ }
+
+.tweet-cont{
+  align-items: center;
+  border: 1px solid red;
+  flex-flow: column nowrap;
 }
 
-.App-link {
-  color: #61dafb;
+.tweet-cont-ind{
+  width: 605px;
+  height: auto;
+  border-bottom: 2px solid #60265B;
+  padding: 20px;
+  font-family: 'Fira Code', monospace;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+
+
+.delete {
+  width: 24px;
+height: 20px;
+}
+.profile-img{
+  width: 56px;
+  height: 56px;
+  border-radius: 50px;
+  margin-right: 10px;
+}
