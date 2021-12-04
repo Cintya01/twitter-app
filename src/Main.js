@@ -13,6 +13,7 @@ function Main(props) {
            props.setUser(usuario);
             console.log(usuario);
         });
+          // eslint-disable-next-line
     }, [])
 
     return (  
