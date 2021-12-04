@@ -1,8 +1,11 @@
 import './App.css';
 // import {firestore} from './firebase';
 import React, { useState} from 'react';
-import {Routes, Route} from 'rea'
+import {Route, Routes} from "react-router-dom";
+import Main from './Main';
+import Home from './Home';
 import Twitter from './Tweets';
+
 
 function App() {
 

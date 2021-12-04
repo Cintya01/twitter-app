@@ -2,7 +2,7 @@ import './Main-Home.css';
 import React, { useEffect } from 'react';
 import {Link} from "react-router-dom";
 import bigLogo from "../src/svg/logo_big.svg";
-import { loginConGoogle, auth, logout} from "./firebase";
+import {loginConGoogle, auth, logout} from './firebase';
 
 
 
