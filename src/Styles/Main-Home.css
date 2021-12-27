@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'Silkscreen';
-  src: url(../src/Fonts/slkscr.ttf);
+  src: url(../Resources/Fonts/slkscr.ttf);
 }
 
 *{
@@ -30,7 +30,7 @@
     height: 342px;
 }
 .div-login{
-    width: 420px;
+    width: 433px;
     height: 500px;
     display: flex;
     flex-flow: column wrap;
@@ -44,7 +44,7 @@
 }
 
 h1{
-    font-family: Silkscreen;
+    font-family: 'Silkscreen';
     font-style: normal;
     font-weight: bold;
     font-size: 50px;
@@ -68,8 +68,9 @@ h3 {
     margin-bottom: 40px;
 }
 .log-in {
-    width: 430px;
+    width: 380px;
     height: 58px;
+
   }
   
 
@@ -77,15 +78,16 @@ h3 {
     font-family: roboto-regular;
     font-weight: 500;
     background-color: #4285F4;
-    width: 430px;
+    width: 425px;
     height: 58px;
-    border-radius: 5px 0px 0px 5px;
+    border-radius: 5px;
     display: flex;
     align-items: center;
     color: #ffffff;
+    padding: 30px;
    
 }
-p{
+div .position p{
     font-family:'Fira Code';
     font-style: normal;
     font-weight: normal;

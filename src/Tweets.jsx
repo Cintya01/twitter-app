@@ -1,11 +1,11 @@
-import './App.css';
+import '../src/css/App.css';
 import {firestore} from './firebase';
 import React, {useEffect} from 'react';
-import borrar from "../src/svg/delete.svg";
-import defaultPhoto from "../src/svg/profilePicDefault.svg";
-import ProfilePic from "../src/svg/ornacia.png"
-import logo from "../src/svg/Logo_Alone.svg"
-import name from "../src/svg/Name_Logo.svg"
+import borrar from "../src/Resources/svg/delete.svg";
+import defaultPhoto from "../src/Resources/svg/profilePicDefault.svg";
+import ProfilePic from "../src/Resources/svg/ornacia.png"
+import logo from "../src/Resources/svg/Logo_Alone.svg"
+import name from "../src/Resources/svg/Name_Logo.svg"
 
 //Tercera pantalla//
 
