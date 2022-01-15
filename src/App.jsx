@@ -14,6 +14,7 @@ function App() {
   const [tweet, setTweet] = useState({ tweet:"", autor:""});
   const [user, setUser] = useState(null);
  
+ 
   
  return (
     <div className="App"> 
@@ -23,7 +24,8 @@ function App() {
          element= 
           {<Main    
               user={user} 
-              setUser={setUser}/>}/>                
+              setUser={setUser}
+              />}/>               
         <Route path="/home" 
         element= {<Home 
               user={user} 
@@ -34,7 +36,8 @@ function App() {
               tweets={msn} 
               setTweets={setMsn}
               tweet={tweet}
-              setTweet={setTweet}/>}/>
+              setTweet={setTweet}
+              />}/>
       </Routes>
      </div>
   );

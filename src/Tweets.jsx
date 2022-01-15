@@ -1,4 +1,4 @@
-import '../src/css/App.css';
+import '../src/Styles/App.css';
 import {firestore} from './firebase';
 import React, {useEffect} from 'react';
 import borrar from "../src/Resources/svg/delete.svg";
@@ -6,26 +6,27 @@ import defaultPhoto from "../src/Resources/svg/profilePicDefault.svg";
 import ProfilePic from "../src/Resources/svg/ornacia.png"
 import logo from "../src/Resources/svg/Logo_Alone.svg"
 import name from "../src/Resources/svg/Name_Logo.svg"
+import heart from "../src/Resources/svg/heart.svg"
 
 //Tercera pantalla//
 
 function Twitter(props) {
     
     useEffect (() => {
-        firestore
+        const unsuscribe = firestore
         .collection("Tweets-s4")
         .onSnapshot((snapshot) => {
            const tweets = snapshot.docs.map((doc) => {
                 return {
                     tweet: doc.data().tweet,
                     autor: doc.data().autor,
-                    id: doc.id
+                    id: doc.id,
+                    likes: doc.data().likes
                 };
             });
              props.setTweets(tweets);
-             console.log(tweets);
           });
-          // eslint-disable-next-line
+          return () => unsuscribe();
         },[])
 
         const handleChange = (e) =>{
@@ -60,6 +61,11 @@ function Twitter(props) {
             props.setTweet(newTweet);
             firestore.doc(`props.tweets/${id}`).delete();
         };
+
+        const likeTweet = (id, likes) => {
+            if (!likes) likes = 0;
+            firestore.doc (`props.tweets/${id}`).update({likes: likes + 1});
+        }
 
       return (
         <div>
@@ -101,11 +107,18 @@ function Twitter(props) {
                     <div className="tweet-cont-ind flex" key={tweet.id}>
                     <img className="profile-img" src={defaultPhoto} alt="profile pic"/>
                         <p>{tweet.tweet}</p>
-                        <p>por: {tweet.autor}</p>
-                    
-                    <span onClick={() => deleteTweet(props.tweets.id)}>
-                    <img className="delete" src={borrar} alt="delete"/>
-                    </span>
+                        <p className="tweet-autor">por: {tweet.autor}</p>
+                    <div className="acciones">
+                        <span onClick={() => deleteTweet(props.tweets.id)} className="delete">
+                            <img className="delete" src={borrar} alt="delete"/>
+                        </span>
+                        <span onClick={() => likeTweet(tweet.id, tweet.likes)} className="likes" >
+                        <img height="13px" src={heart} alt="" />
+                        <span>{tweet.likes ? tweet.likes : 0}    </span>
+                        </span>
+
+
+                    </div>
                     </div>
                  </div>
               );

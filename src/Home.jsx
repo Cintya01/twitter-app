@@ -15,7 +15,7 @@ function Home(props) {
                        
                 <div className="div-login"> 
                 <h1>WELCOME </h1>
-                <h3> mmm </h3>
+                <h3> {props.user} </h3>
                 <div>
                 <div className="text-center">
                      <img  alt="foto"/>

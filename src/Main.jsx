@@ -1,6 +1,6 @@
 import '../src/Styles/Main-Home.css'
 import React, {useState, useEffect} from 'react';
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import bigLogo from "../src/Resources/svg/logo_big.svg";
 import {loginConGoogle, auth, logout} from './firebase';
 import black from "../src/Resources/svg/google_sign_in.svg";
@@ -9,16 +9,26 @@ import black from "../src/Resources/svg/google_sign_in.svg";
 function Main(props) {
 
     const [authenticated, setAuthenticated] = useState("");
-     
-    useEffect(() => {             
-        auth.onAuthStateChanged((usuario) => {
+
+
+    
+  let navigate = useNavigate();
+
+
+  function handleClick() {
+      navigate("/twitter");
+  }
+      
+    useEffect(() => {  
+           auth.onAuthStateChanged((usuario) => {
            props.setUser(usuario);
            setAuthenticated(true);
         });
-          // eslint-disable-next-line   
+         // eslint-disable-next-line 
     }, [])
 
     return (  
+        
         <div className="container">     
             <div className="cont-login"> 
                 <img className="img-style" src={bigLogo} alt="DEVSUnited Logo"/>
@@ -29,20 +39,28 @@ function Main(props) {
                 <div className="div-login"> 
                 
                
-             {props.user ? (
+             {props.user && authenticated ? (
                  <>
-                 <h1>Lorem Ipsum Dolor </h1>
-                <h3> Lorem ipsum dolor sir amet, consectetur adipiscing elit </h3>
-                 <div className="text-center">
-                     <img src={props.user.photoURL} alt="foto"/>
-                     <h2>!Hola {props.user.displayName}!</h2>
-                     <button className="gButton" onClick={logout}>Log Out</button>
-                 </div>
-                 </>
+                 
+                <p className="text-title white">WELCOME <span> {props.user.displayName}! </span></p>
+                <input className="input-type" type="text" placeholder='Type your username'/>
+
+                <p>Select your favorite color</p>
+                <div className="color-cont">
+                    <button className="color-square"></button>
+                    <button className="color-square"></button>
+                    <button className="color-square"></button>
+                    <button className="color-square"></button>
+                    <button className="color-square"></button>
+                    <button className="color-square"></button>
+                </div>
+                <button className="gButton" onClick={handleClick} >Continue</button>
+                <button className="log-out" onClick={logout}>Log Out</button>
+                </>
                 ) : (
                     <>
-                    <h1>Lorem Ipsum Dolor </h1>
-                    <h3> Lorem ipsum dolor sir amet, consectetur adipiscing elit </h3>
+                    <h1 className="text-title white">Lorem Ipsum Dolor </h1>
+                    <h3 className="white"> Lorem ipsum dolor sir amet, consectetur adipiscing elit </h3>
                    <button  className="gButton" onClick={loginConGoogle}>
                          <img  className="log-in" src={black} alt="Login with Google"/>
                    </button>
@@ -55,11 +73,12 @@ function Main(props) {
                 </div>
                 
             </div>
-          
-          <Navigate to={authenticated ? "/home" : "/"}/>         
-            
+              
             </div>
+            
         </div>
+
+       
     )
 }
 
