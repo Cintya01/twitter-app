@@ -14,6 +14,10 @@ import heart from "../src/Resources/svg/heart.svg"
 function Twitter(props) {
     let navigate = useNavigate();
 
+    function handleClick() {
+        navigate("/UserMainPage");
+    }
+
     useEffect (() => {
 
         if(!props.user) {
@@ -26,11 +30,11 @@ function Twitter(props) {
                 return {
                     id:doc.id,
                     autor: doc.data().autor,
-                tweet: doc.data().tweet,
-                dateCreated: doc.data().dateCreated,
-                likes: doc.data().likes,
-                userId: doc.data().userId,
-                email: doc.data().email,
+                    tweet: doc.data().tweet,
+                    dateCreated: doc.data().dateCreated,
+                    likes: doc.data().likes,
+                    userId: doc.data().userId,
+                    email: doc.data().email,
                 };
             });
              props.setTweets(tweets);
@@ -47,25 +51,25 @@ function Twitter(props) {
         };
 
         const sendTweet = (e) => {
-            e.preventDefault();
-            props.tweet.autor  = props.user.userName;
-            props.tweet.dateCreated = new Date().getTime();
-            props.tweet.likes = 0;
-            props.tweet.userId = props.user.uid;
-            props.tweet.email = props.user.email;
+
+             e.preventDefault();
+                props.tweet.autor  = props.user.userName;
+                props.tweet.dateCreated = new Date();
+                props.tweet.userId = props.user.uid;
+                props.tweet.email = props.user.email;
         let sendTweet = firestore.collection("Tweets-s4").add(props.tweet)
         let documentSolicitude = sendTweet.then((docRef) => {
             return docRef.get();
         });
         documentSolicitude.then((doc) => {
-            props.setTweets([props.tweet,...props.tweets])
-            props.setTweet({  autor: "",
-            tweet: "",
-            dateCreated: "",
-            likes: 0,
-            userId: "",
-            email: ""})
-        })
+                props.setTweets([props.tweet,...props.tweets])
+                props.setTweet({  autor: "",
+                tweet: "",
+                dateCreated: "",
+                likes: 0,
+                userId: "",
+                email: ""});
+        });
 
         };
 
@@ -86,13 +90,13 @@ function Twitter(props) {
         <div>
             <div className="header-cont flex">
         <nav className="header-nav-cont flex">
-            <img className="profile-img-header" src={ProfilePic} alt="Profile Pic"/>
+            <img className="profile-img-header" src={ProfilePic} alt="Profile Pic" onClick={handleClick}/>
             <img className="logo-cont-header" src={logo} alt="Logo"/>
             <img className="devs-header" src={name} alt="DEVSUNITED"/>
         </nav>
         </div>
             <div className="form-cont flex">
-            <img className="profile-img" src={ProfilePic} alt="Profile Pic"/>
+            <img className="profile-img" src={ProfilePic} alt="Profile Pic" onClick={handleClick}/>
                 <form>
                     <textarea
                         name="tweet"
@@ -119,24 +123,29 @@ function Twitter(props) {
 
             <section className="tweet-cont flex">           
             {props.tweets.map((tweet) => {
-                 
-                let formatDate = (date) => {
-                    try{
-                        if(date instanceof Date) return date;
-                        //si no es date, es fecha de Firebase y debe convertirse.
-                        return date.toDate().toLocaleDateString();
-                    }catch(e){
-                        console.log(e);
-                        return "";
-                    }
-                }
+
+                let date = tweet.dateCreated.toDate().toLocaleDateString();
+                   
+
+                                  
+                // let formatDate = (date) => {
+                //     try{
+                //         if(date instanceof Date) return date;
+                //         //si no es date, es fecha de Firebase y debe convertirse.
+                //         return date.toDate().toLocaleDateString();
+                //     }catch(e){
+                //         console.log(e);
+                //         return "";
+                //     }
+                // }
+                
 
                return (   
                              
                     <div className="tweet-cont-ind flex" key={tweet.id}>
                     <img className="profile-img" src={defaultPhoto} alt="profile pic"/>
-                    <p className="username">{tweet.autor}</p>
-                        <span>date : {formatDate(tweet.dateCreated)}</span>
+                    <p className="username" onClick={handleClick}>{tweet.autor}</p>
+                        <span>date : {date}</span>
                         <div className='flex'>
                         <p>{tweet.tweet}</p>
                         </div>

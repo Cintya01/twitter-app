@@ -2,7 +2,7 @@ import '../src/Styles/Main-Home.css'
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
 import bigLogo from "../src/Resources/svg/logo_big.svg";
-import {firestore, loginConGoogle, auth, logout} from './firebase';
+import {firestore, loginConGoogle, auth} from './firebase';
 import black from "../src/Resources/svg/google_sign_in.svg";
 
 function Main(props) {

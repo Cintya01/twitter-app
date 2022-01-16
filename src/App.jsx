@@ -3,7 +3,7 @@ import '../src/Styles/App.css';
 import React, { useState } from 'react';
 import {Route, Routes} from "react-router-dom";
 import Main from './Main';
-import Home from './Home';
+import UserMainPage from './UserMainPage';
 import Twitter from './Tweets';
 
 
@@ -32,7 +32,7 @@ function App() {
               setUser={setUser}
               />}/>               
         <Route path="/home" 
-        element= {<Home 
+        element= {<UserMainPage 
               user={user} 
               setUser={setUser}/>}/>
         <Route path="/twitter" 
