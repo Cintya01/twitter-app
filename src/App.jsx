@@ -11,7 +11,12 @@ import Twitter from './Tweets';
 function App() {
 
   const [msn, setMsn] = useState ([]);
-  const [tweet, setTweet] = useState({ tweet:"", autor:""});
+  const [tweet, setTweet] = useState({  autor: "",
+    tweet: "",
+    dateCreated: "",
+    likes: 0,
+    userId: "",
+    email: ""});
   const [user, setUser] = useState(null);
  
  
@@ -33,6 +38,7 @@ function App() {
         <Route path="/twitter" 
         element=  
           {<Twitter 
+              user={user} 
               tweets={msn} 
               setTweets={setMsn}
               tweet={tweet}

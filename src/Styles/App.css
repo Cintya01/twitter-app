@@ -85,8 +85,8 @@ textarea {
  }
 
 .tweet-cont{
+  border-top: 2px solid #60265B;
   align-items: center;
-  border: 1px solid red;
   flex-flow: column nowrap;
 }
 
@@ -94,8 +94,13 @@ textarea {
   width: 605px;
   height: auto;
   border-bottom: 2px solid #60265B;
+  border: 1px solid white;
   padding: 20px;
   font-family: 'Fira Code', monospace;
+}
+
+.username{
+  font-family: 'Silkscreen';
 }
 
 

@@ -77,6 +77,22 @@ h3 {
 /* .log-out{
     
 } */
+
+.input-type{
+    width: 425px;
+    height: 67px;
+    background-color: #150714;
+    border: none;
+    font-family: Fira Code;
+    font-style: normal;
+    font-weight: 450;
+    font-size: 18px;
+    line-height: 31px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.333333px;
+    color: #914D8B;
+}
   
 
 .gButton {
