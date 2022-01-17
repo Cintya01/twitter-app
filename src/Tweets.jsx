@@ -143,11 +143,15 @@ function Twitter(props) {
                return (   
                              
                     <div className="tweet-cont-ind flex" key={tweet.id}>
-                    <img className="profile-img" src={defaultPhoto} alt="profile pic"/>
-                    <p className="username" onClick={handleClick}>{tweet.autor}</p>
-                        <span>date : {date}</span>
-                        <div className='flex'>
-                        <p>{tweet.tweet}</p>
+                        <div className="photo-space">
+                             <img className="profile-img" src={defaultPhoto} alt="profile pic"/>
+                        </div>
+                        <div className="first-row">
+                            <p className="username" onClick={handleClick}>{tweet.autor}</p>
+                            <span classname="date">/ {date}</span>
+                        </div>
+                        <div className='flex tweet-space'>
+                            <p>{tweet.tweet}</p>
                         </div>
                     <div className="acciones">
                         {tweet.userId === props.user.uid ?
@@ -166,7 +170,7 @@ function Twitter(props) {
                     </div>
                     </div>
               );
-            })};
+            })}
             </section>
             
            

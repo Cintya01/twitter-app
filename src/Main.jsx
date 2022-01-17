@@ -72,7 +72,7 @@ function Main(props) {
                  <>
                  
                 <p className="text-title white">WELCOME <span> {props.user.userName}! </span></p>
-                <input className="input-type" type="text" placeholder='Type your username' value={props.user.userName} onChange={changeUsername}/>
+                <input className="input-type" type="text" placeholder='Type your username'  onChange={changeUsername}/>
 
                 <p>Select your favorite color</p>
                 <div className="color-cont">

@@ -92,26 +92,52 @@ textarea {
 
 .tweet-cont-ind{
   width: 605px;
-  height: auto;
+  height: 300px;
   border-bottom: 2px solid #60265B;
   border: 1px solid white;
   padding: 20px;
   font-family: 'Fira Code', monospace;
 }
 
-.username{
-  font-family: 'Silkscreen';
-}
-
-
-
-.delete {
-  width: 24px;
-height: 20px;
+.photo-space{
+  display: flex;
+  justify-content: center;
+  height:300px;
+  width: 70px;
+  
 }
 .profile-img{
   width: 56px;
   height: 56px;
   border-radius: 50px;
   margin-right: 10px;
+ }
+
+.first-row{
+  display: flex;
+  flex-flow: row wrap;
 }
+
+.username{
+  font-family: 'Silkscreen';
+  width: auto;
+  height: 18px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #800FFF;
+  box-shadow: 0 4px 0px -2px  #800FFF;
+  color:  #2E132C;
+}
+.date{
+
+}
+.tweet-space{
+
+}
+
+.delete {
+  width: 24px;
+height: 20px;
+}
+
+
