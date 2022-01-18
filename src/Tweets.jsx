@@ -146,27 +146,33 @@ function Twitter(props) {
                         <div className="photo-space">
                              <img className="profile-img" src={defaultPhoto} alt="profile pic"/>
                         </div>
+                        <div className="text-cont">
                         <div className="first-row">
                             <p className="username" onClick={handleClick}>{tweet.autor}</p>
-                            <span classname="date">/ {date}</span>
+                            <span>- {date} .</span>
+                        
+                            {tweet.userId === props.user.uid ?
+                            <span onClick={() => deleteTweet(tweet.id)} className="delete">
+                                <img className="svg-delete" src={borrar} alt="delete"/>
+                            </span> : null
+                            }
                         </div>
+
+                       
                         <div className='flex tweet-space'>
                             <p>{tweet.tweet}</p>
                         </div>
-                    <div className="acciones">
-                        {tweet.userId === props.user.uid ?
-                        <span onClick={() => deleteTweet(tweet.id)} className="delete">
-                            <img className="delete" src={borrar} alt="delete"/>
-                        </span> : null
-                        }
+                    <div>
+                        
                         {tweet.userId !== props.user.uid ?
                         
                         <span onClick={() => likeTweet(tweet.id, tweet.likes)} className="likes" >
                         <img height="13px" src={heart} alt="" />
                         <span>{tweet.likes ? tweet.likes : 0}    </span>
-                        <p className="username">{tweet.email}</p>
+                        <p className="email-text">{tweet.email}</p>
                         </span>
                         : null}
+                    </div>
                     </div>
                     </div>
               );

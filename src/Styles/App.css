@@ -102,7 +102,7 @@ textarea {
 .photo-space{
   display: flex;
   justify-content: center;
-  height:300px;
+  height:250px;
   width: 70px;
   
 }
@@ -113,9 +113,10 @@ textarea {
   margin-right: 10px;
  }
 
-.first-row{
+ .text-cont{
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column nowrap;
+  width: 100%;
 }
 
 .username{
@@ -128,16 +129,33 @@ textarea {
   box-shadow: 0 4px 0px -2px  #800FFF;
   color:  #2E132C;
 }
-.date{
 
+.delete{
+  padding-left: 150px;
+  height: auto;
 }
-.tweet-space{
-
-}
-
-.delete {
+.svg-delete {
   width: 24px;
-height: 20px;
+  height: 20px;
 }
+  
+.first-row{
+  display: flex;
+  flex-flow: row wrap
+} 
+
+.tweet-space{
+ text-align: start;
+ margin-top: 20px;
+ width: 500px;
+ height: 136px;
+ font-size: 18px;
+ font-weight: 450;
+}
+
+.email-text{
+  color: #60265B;
+}
+
 
 
