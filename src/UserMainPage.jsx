@@ -1,5 +1,4 @@
 import '../src/Styles/App.css';
-<<<<<<< HEAD
 import {firestore} from './firebase';
 import { useNavigate } from "react-router-dom";
 import React, {useEffect} from 'react';
@@ -179,7 +178,5 @@ function UserMainPage(props) {
         </div>
       );
 }
-=======
->>>>>>> 7428045bcd5ec201073745104eb38461341e4ac3
 
 export default UserMainPage;
