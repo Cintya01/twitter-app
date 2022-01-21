@@ -15,6 +15,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 // Exporta la funcionalidad de la DB
 export const firestore = firebase.firestore()
+
 //el módulo de autenticación
 export const auth = firebase.auth();
 //el proveedor de auth

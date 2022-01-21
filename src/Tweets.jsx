@@ -1,5 +1,4 @@
 import '../src/Styles/App.css';
-<<<<<<< HEAD
 import {firestore} from './firebase';
 import { useNavigate } from "react-router-dom";
 import React, {useEffect} from 'react';
@@ -12,9 +11,7 @@ import heart from "../src/Resources/svg/heart.svg"
 
 //Tercera pantalla//
 
-function UserMainPage(props) {
-
-    <h1>Hola Mundo</h1>
+function Twitter(props) {
     let navigate = useNavigate();
 
     function handleClick() {
@@ -38,12 +35,16 @@ function UserMainPage(props) {
                     likes: doc.data().likes,
                     userId: doc.data().userId,
                     email: doc.data().email,
+                    photoURL: doc.data().photoURL,
+                    nickName: doc.data().nickName
                 };
             });
              props.setTweets(tweets);
           });
           return () => unsuscribe();
-        },[])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        },[]);
+
 
         const handleChange = (e) =>{
             let newTweet = {
@@ -54,25 +55,23 @@ function UserMainPage(props) {
         };
 
         const sendTweet = (e) => {
-
              e.preventDefault();
-                props.tweet.autor  = props.user.userName;
+                props.tweet.photoURL = props.user.photoURL;
+                // props.tweet.autor  = props.user.name;
+                props.tweet.autor  = props.user.nickName ? props.user.nickName : props.user.name;
+                // SI HAY PROPS USER NICKNAME MUESTRE SI NO, NAME ? :
                 props.tweet.dateCreated = new Date();
                 props.tweet.userId = props.user.uid;
                 props.tweet.email = props.user.email;
-        let sendTweet = firestore.collection("Tweets-s4").add(props.tweet)
-        let documentSolicitude = sendTweet.then((docRef) => {
-            return docRef.get();
-        });
-        documentSolicitude.then((doc) => {
-                props.setTweets([props.tweet,...props.tweets])
-                props.setTweet({  autor: "",
+            
+        console.log(props.tweet)
+        firestore.collection("Tweets-s4").add(props.tweet)
+        props.setTweet({  autor: "",
                 tweet: "",
                 dateCreated: "",
                 likes: 0,
                 userId: "",
                 email: ""});
-        });
 
         };
 
@@ -88,6 +87,13 @@ function UserMainPage(props) {
             if (!likes) likes = 0;
             firestore.doc (`Tweets-s4/${id}`).update({likes: likes + 1});
         }
+    //     const handlePhoto = (defaultPhoto) => {
+    //         if(photo !== null) {
+    //         return photo;
+    //     } else {
+    //         return defaultPic;
+    //     }
+    // }
 
       return (
         <div>
@@ -101,46 +107,34 @@ function UserMainPage(props) {
             <div className="form-cont flex">
             <img className="profile-img" src={ProfilePic} alt="Profile Pic" onClick={handleClick}/>
                 <form>
-                   
-                <div>200 max</div>
-                <div>
-                    {/* <input 
-                        name="autor"
+                    <textarea
+                        name="tweet"
                         onChange={handleChange}
-                        value= {props.tweet.autor}
-                        type="text"
-                        placeholder="persona autora"
-                     /> */}
-                    
+                        value= {props.tweet.tweet}
+                        cols="30"
+                        rows= "5"
+                        placeholder="What's Happening?..."
+                />
+                <div>200 max</div>
+                <div>                
                     <button className="btn-post silk-font" onClick={sendTweet}> POST </button>
                     </div>
                 </form>
             </div>
 
-            <section className="tweet-cont flex">           
+            <section className="tweet-cont flex">  
+
             {props.tweets.map((tweet) => {
 
                 let date = tweet.dateCreated.toDate().toLocaleDateString();
-                   
-
-                                  
-                // let formatDate = (date) => {
-                //     try{
-                //         if(date instanceof Date) return date;
-                //         //si no es date, es fecha de Firebase y debe convertirse.
-                //         return date.toDate().toLocaleDateString();
-                //     }catch(e){
-                //         console.log(e);
-                //         return "";
-                //     }
-                // }
-                
 
                return (   
                              
                     <div className="tweet-cont-ind flex" key={tweet.id}>
                         <div className="photo-space">
+                            {tweet.photoURL === "" ?
                              <img className="profile-img" src={defaultPhoto} alt="profile pic"/>
+                             :  <img className="profile-img" src={tweet.photoURL} alt="profile pic"/> }
                         </div>
                         <div className="text-cont">
                         <div className="first-row">
@@ -165,9 +159,9 @@ function UserMainPage(props) {
                         <span onClick={() => likeTweet(tweet.id, tweet.likes)} className="likes" >
                         <img height="13px" src={heart} alt="" />
                         <span>{tweet.likes ? tweet.likes : 0}    </span>
-                        <p className="email-text">{tweet.email}</p>
                         </span>
                         : null}
+                         <p className="email-text">{tweet.email}</p>
                     </div>
                     </div>
                     </div>
@@ -179,7 +173,5 @@ function UserMainPage(props) {
         </div>
       );
 }
-=======
->>>>>>> 7428045bcd5ec201073745104eb38461341e4ac3
 
-export default UserMainPage;
+export default Twitter;
