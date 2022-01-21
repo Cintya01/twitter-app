@@ -20,6 +20,7 @@ function App() {
   const [user, setUser] = useState(null);
  
  
+ 
   
  return (
     <div className="App"> 
@@ -30,11 +31,8 @@ function App() {
           {<Main    
               user={user} 
               setUser={setUser}
+             
               />}/>               
-        <Route path="/home" 
-        element= {<UserMainPage 
-              user={user} 
-              setUser={setUser}/>}/>
         <Route path="/twitter" 
         element=  
           {<Twitter 
@@ -44,6 +42,15 @@ function App() {
               tweet={tweet}
               setTweet={setTweet}
               />}/>
+        <Route path="/UserMainPage" 
+        element= 
+        {<UserMainPage 
+          user={user} 
+          tweets={msn} 
+          setTweets={setMsn}
+          tweet={tweet}
+          setTweet={setTweet}
+          />}/>
       </Routes>
      </div>
   );

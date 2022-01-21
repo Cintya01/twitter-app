@@ -94,7 +94,7 @@ textarea {
   width: 605px;
   height: 300px;
   border-bottom: 2px solid #60265B;
-  border: 1px solid white;
+  /* border: 1px solid white; */
   padding: 20px;
   font-family: 'Fira Code', monospace;
 }
