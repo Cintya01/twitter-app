@@ -1,7 +1,7 @@
 import '../src/Styles/App.css';
-import {firestore} from './firebase';
+import { AppFirebaseContext } from "./Context/AppContext";
 import { useNavigate } from "react-router-dom";
-import React, {useEffect} from 'react';
+import React, {useContext} from 'react';
 import borrar from "../src/Resources/svg/delete.svg";
 import defaultPhoto from "../src/Resources/svg/profilePicDefault.svg";
 import ProfilePic from "../src/Resources/svg/ornacia.png"
@@ -9,91 +9,24 @@ import logo from "../src/Resources/svg/Logo_Alone.svg"
 import name from "../src/Resources/svg/Name_Logo.svg"
 import heart from "../src/Resources/svg/heart.svg"
 
-//Tercera pantalla//
+function Twitter() {
 
-function Twitter(props) {
+    const {user, tweets, setTweet, sendTweet, deleteTweet,likeTweet, tweet} = useContext(AppFirebaseContext)
+
     let navigate = useNavigate();
 
     function handleClick() {
-        navigate("/UserMainPage");
+        navigate("/UserMainPage");        
     }
 
-    useEffect (() => {
-
-        if(!props.user) {
-            navigate("/");
-        }
-        const unsuscribe = firestore
-        .collection("Tweets-s4")
-        .onSnapshot((snapshot) => {
-           const tweets = snapshot.docs.map((doc) => {
-                return {
-                    id:doc.id,
-                    autor: doc.data().autor,
-                    tweet: doc.data().tweet,
-                    dateCreated: doc.data().dateCreated,
-                    likes: doc.data().likes,
-                    userId: doc.data().userId,
-                    email: doc.data().email,
-                    photoURL: doc.data().photoURL,
-                    nickName: doc.data().nickName
-                };
-            });
-             props.setTweets(tweets);
-          });
-          return () => unsuscribe();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        },[]);
-
-
-        const handleChange = (e) =>{
-            let newTweet = {
-                ...props.tweet,
-                [e.target.name]: e.target.value
-            };
-            props.setTweet(newTweet);
+    const handleChange = (e) =>{
+        let newTweet = {
+            ...tweet,
+            [e.target.name]: e.target.value
         };
-
-        const sendTweet = (e) => {
-             e.preventDefault();
-                props.tweet.photoURL = props.user.photoURL;
-                // props.tweet.autor  = props.user.name;
-                props.tweet.autor  = props.user.nickName ? props.user.nickName : props.user.name;
-                // SI HAY PROPS USER NICKNAME MUESTRE SI NO, NAME ? :
-                props.tweet.dateCreated = new Date();
-                props.tweet.userId = props.user.uid;
-                props.tweet.email = props.user.email;
-            
-        console.log(props.tweet)
-        firestore.collection("Tweets-s4").add(props.tweet)
-        props.setTweet({  autor: "",
-                tweet: "",
-                dateCreated: "",
-                likes: 0,
-                userId: "",
-                email: ""});
-
-        };
-
-        const deleteTweet = (id) => {
-            const newTweet = props.tweets.filter((tweet) => {
-                return tweet.id !== id;
-            });
-            props.setTweet(newTweet);
-            firestore.collection("Tweets-s4").doc(id).delete()
-        };
-
-        const likeTweet = (id, likes) => {
-            if (!likes) likes = 0;
-            firestore.doc (`Tweets-s4/${id}`).update({likes: likes + 1});
-        }
-    //     const handlePhoto = (defaultPhoto) => {
-    //         if(photo !== null) {
-    //         return photo;
-    //     } else {
-    //         return defaultPic;
-    //     }
-    // }
+        setTweet(newTweet);
+    };
+  
 
       return (
         <div>
@@ -110,7 +43,7 @@ function Twitter(props) {
                     <textarea
                         name="tweet"
                         onChange={handleChange}
-                        value= {props.tweet.tweet}
+                        value= {tweet.tweet}
                         cols="30"
                         rows= "5"
                         placeholder="What's Happening?..."
@@ -124,7 +57,7 @@ function Twitter(props) {
 
             <section className="tweet-cont flex">  
 
-            {props.tweets.map((tweet) => {
+            {tweets.map((tweet) => {
 
                 let date = tweet.dateCreated.toDate().toLocaleDateString();
 
@@ -141,7 +74,7 @@ function Twitter(props) {
                             <p className="username" onClick={handleClick}>{tweet.autor}</p>
                             <span>- {date} .</span>
                         
-                            {tweet.userId === props.user.uid ?
+                            {tweet.userId === user.uid ?
                             <span onClick={() => deleteTweet(tweet.id)} className="delete">
                                 <img className="svg-delete" src={borrar} alt="delete"/>
                             </span> : null
@@ -154,7 +87,7 @@ function Twitter(props) {
                         </div>
                     <div>
                         
-                        {tweet.userId !== props.user.uid ?
+                        {tweet.userId !== user.uid ?
                         
                         <span onClick={() => likeTweet(tweet.id, tweet.likes)} className="likes" >
                         <img height="13px" src={heart} alt="" />

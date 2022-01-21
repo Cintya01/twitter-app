@@ -12,18 +12,17 @@ function Main() {
 
     const {user, setUser, changeUsername, authenticated, setAuthenticated, nickName} = useContext(AppFirebaseContext)
 
-   
-  let navigate = useNavigate();
+    let navigate = useNavigate();
 
- function handleClick() {
-      navigate("/twitter");
-  }
+     function handleClick() {
+         navigate("/twitter");
+    }
 
-  let logout = () => {
-      setAuthenticated(false);
-      setUser(null);
-      auth.signOut();
-  }
+     let logout = () => {
+        setAuthenticated(false);
+        setUser(null);
+        auth.signOut();
+     }
       
     
     return (  
