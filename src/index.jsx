@@ -4,12 +4,15 @@ import '../src/Styles/index.css';
 import App from './App';
 import { BrowserRouter} from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
+import FirebaseProvider from "./Context/AppContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <FirebaseProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </FirebaseProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

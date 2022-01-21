@@ -1,17 +1,17 @@
  // MAIN LOG IN - WELCOME - COLOR AND NICKNAME SET
 
-
 import '../src/Styles/Main-Home.css'
-import React, {useState, useEffect} from 'react';
+import React, {useContext} from 'react';
+import { AppFirebaseContext } from "./Context/AppContext";
 import { useNavigate } from "react-router-dom";
 import bigLogo from "../src/Resources/svg/logo_big.svg";
-import {firestore, loginConGoogle, auth} from './firebase';
+import {loginConGoogle, auth} from './firebase';
 import black from "../src/Resources/svg/google_sign_in.svg";
 
-function Main(props) {
+function Main() {
 
-    const [authenticated, setAuthenticated] = useState(false);
-    const [nickName, setNickName] = useState("")
+    const {user, setUser, changeUsername, authenticated, setAuthenticated, nickName} = useContext(AppFirebaseContext)
+
    
   let navigate = useNavigate();
 
@@ -21,58 +21,11 @@ function Main(props) {
 
   let logout = () => {
       setAuthenticated(false);
-      props.setUser(null);
+      setUser(null);
       auth.signOut();
   }
       
-    useEffect(() => {  
-           auth.onAuthStateChanged((usuario) => {
-           if(!usuario) return;
-           setAuthenticated(true);
-           firestore.collection("Users-s4").doc(usuario.uid).get().then((docRef) => {
-               //si usr existe, obtener datos y meterlos al props
-               if(docRef.exists){
-                    // console.log("firestoreDocs",docRef.data());
-                    let data = docRef.data();
-                    props.setUser(data);
-               }else{
-                   //usr no existe, guardar datos en firebase y luego setear en props.
-                let userObject = {
-                    email:usuario.email,
-                    uid:usuario.uid,
-                    name:usuario.displayName,
-                    photoURL: usuario.photoURL,
-                    nickName: nickName
-                }
-                //guardar user, pass, uid
-                firestore.collection("Users-s4").doc(userObject.uid).set(userObject,{merge:true}).then((docRef)=>{
-                    props.setUser(userObject);
-                })
-               }
-
-               
-           })
-   
-        });
-         // eslint-disable-next-line 
-    }, [])
-
-    const changeUsername = (e) => {
-        setNickName(e.target.value);
-   
-        firestore.collection("Users-s4").doc(props.user.uid).set(
-            {photoURL: props.user.photoURL,
-                name: props.user.name,                       
-            uid : props.user.uid,
-            email : props.user.email,
-            nickName: nickName})
-   
-   //    let nickName = document.getElementById("nickNameElement").value;
-   //    document.getElementById("valueInput").innerHTML = nickName; 
-   //    console.log(nickName)
-      }
-  
-
+    
     return (  
         
         <div className="container">     
@@ -80,15 +33,13 @@ function Main(props) {
                 <img className="img-style" src={bigLogo} alt="DEVSUnited Logo"/>
             </div>
             <div className="cont-login"> 
-            <div> 
-                
-                <div className="div-login"> 
-                
+                <div>                 
+                 <div className="div-login"> 
                
-             {props.user && authenticated ? (
+             {user && authenticated ? (
                  <>
                  
-                <p className="text-title white">WELCOME <span> {props.user.name}! </span></p>
+                <p className="text-title white">WELCOME <span> {user.name}! </span></p>
                          
                 <input 
                     className="input-type" 
