@@ -15,7 +15,7 @@ function Twitter() {
 
     let navigate = useNavigate();
 
-    function handleClick() {
+    function handleClick() {        
         navigate("/UserMainPage");        
     }
 
@@ -86,7 +86,7 @@ function Twitter() {
                             <p>{tweet.tweet}</p>
                         </div>
                     <div>
-                        
+            
                         {tweet.userId !== user.uid ?
                         
                         <span onClick={() => likeTweet(tweet.id, tweet.likes)} className="likes" >

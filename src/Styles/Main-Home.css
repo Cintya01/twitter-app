@@ -153,7 +153,7 @@ p span {
     background-color: red;
 }
 
-.color-square:first-of-type{
+/* .color-square:first-of-type{
     background-color: #F50D5A;
 }
 .color-square:nth-child(2){
@@ -171,4 +171,4 @@ p span {
 .color-square:last-child{
     background-color: #800FFF;
     ;
-}
+} */

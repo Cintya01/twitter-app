@@ -1,7 +1,7 @@
  // MAIN LOG IN - WELCOME - COLOR AND NICKNAME SET
 
 import '../src/Styles/Main-Home.css'
-import React, {useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import { AppFirebaseContext } from "./Context/AppContext";
 import { useNavigate } from "react-router-dom";
 import bigLogo from "../src/Resources/svg/logo_big.svg";
@@ -10,7 +10,9 @@ import black from "../src/Resources/svg/google_sign_in.svg";
 
 function Main() {
 
-    const {user, setUser, changeUsername, authenticated, setAuthenticated, nickName} = useContext(AppFirebaseContext)
+    const {user, setUser, changeUsername, authenticated, setAuthenticated, nickName, colorList, setColorList, colorHex} = useContext(AppFirebaseContext)
+    const [chooseColor, setChooseColor] = useState(undefined)
+
 
     let navigate = useNavigate();
 
@@ -23,7 +25,28 @@ function Main() {
         setUser(null);
         auth.signOut();
      }
-      
+
+    //  const setColor  = (e, color) => {
+    //      const colorId = e.target.id;
+       
+   
+    //      const colorOption = (color) => {
+    //          return (
+    //              <div
+    //                  onClick={() => setColorList(color)}
+    //                  key= {color.hex}
+    //                  style= {{backgroundColor: color.hex}}
+    //              />
+    //          );
+    //      };
+
+    //      const colorOptions = () => {
+    //          return colorHex.map((color) => {
+    //              return colorOption(color);
+    //          });
+    //      };
+    //      return <div>{colorOptions()}</div>;
+    //  }
     
     return (  
         
@@ -54,12 +77,18 @@ function Main() {
 
                 <p>Select your favorite color</p>
                 <div className="color-cont">
-                    <button className="color-square"></button>
-                    <button className="color-square"></button>
-                    <button className="color-square"></button>
-                    <button className="color-square"></button>
-                    <button className="color-square"></button>
-                    <button className="color-square"></button>
+                   <div className="color-square">
+                        {colorHex.map((color) =>{                            
+                               
+                                             <div 
+                                                 onClick={() => setColorList(color)}
+                                                 key= {color.hex}
+                                                 style= {{backgroundColor: color.hex}}
+                                             />
+                                      
+                        })}
+              </div>
+                   
                 </div>
 
                 <button className="gButton" onClick={handleClick} >Continue</button>

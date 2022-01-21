@@ -9,8 +9,9 @@ export default function FirebaseProvider({ children }) {
 
     const [user, setUser] = useState(null);
     const [authenticated, setAuthenticated] = useState(false); 
+    const [color, setColor] = useState();
     const [nickName, setNickName] = useState("");
-    const [tweets, setTweets] = useState ([]);
+    const [tweets, setTweets] = useState ([]); 
     const [tweet, setTweet] = useState({  
         autor: "",
         tweet: "",
@@ -36,7 +37,8 @@ useEffect(() => {
                 uid: user.uid,
                 name: user.displayName,
                 photoURL: user.photoURL,
-                nickName: nickName
+                nickName: nickName,
+                // color: color,
             }
          //guardar datos de userObjetct
          firestore.collection("Users-s4").doc(userObject.uid).set(userObject,{merge:true}).then((docRef)=>{
@@ -50,12 +52,14 @@ useEffect(() => {
     const changeUsername = (e) => {
         setNickName(e.target.value);
 
-        firestore.collection("Users-s4").doc(user.uid).set(
-            {photoURL: user.photoURL,
-                name: user.name,                       
+        firestore.collection("Users-s4").doc(user.uid).set({
+            photoURL: user.photoURL,
+            name: user.name,                       
             uid : user.uid,
             email : user.email,
-            nickName: nickName})
+            nickName: nickName,
+
+        })
         }
 
   //   OBTENER DATOS DE FIREBASE Y USER DATA
@@ -77,7 +81,8 @@ useEffect(() => {
                         userId: doc.data().userId,
                         email: doc.data().email,
                         photoURL: doc.data().photoURL,
-                        nickName: doc.data().nickName
+                        nickName: doc.data().nickName,
+                        color: doc.data().color,
                     };
                 });
                  setTweets(tweets);
@@ -92,7 +97,6 @@ useEffect(() => {
             const sendTweet = (e) => {
                  e.preventDefault();
                     tweet.photoURL = user.photoURL;
-                    // tweet.autor  = user.name;
                     tweet.autor  = user.nickName ? user.nickName : user.name;
                     // SI HAY PROPS USER NICKNAME MUESTRE SI NO, NAME ? : 
                     tweet.dateCreated = new Date();
@@ -123,9 +127,20 @@ useEffect(() => {
                 firestore.doc (`Tweets-s4/${id}`).update({likes: likes + 1});
             }
 
+            const colorHex = [
+                { n: "red", hex:"#F50D5A", choose: false},
+                { n: "orange", hex:"#FF865C", choose: false},
+                { n: "yellow", hex:"FFEA5C", choose: false},
+                { n: "green", hex:"00DA76", choose: false},
+                { n: "lightBlue", hex:"#0096CE", choose: false},
+                { n: "Purple", hex:"#800FFF", choose: false}
+            ]
+
+            const [colorList, setColorList] = useState(colorHex[0]);
+            
 
 return (
-    <AppFirebaseContext.Provider value= {{user, setUser, authenticated, setAuthenticated, changeUsername, sendTweet, deleteTweet, likeTweet, tweet, setTweet, tweets, setTweets}} >
+    <AppFirebaseContext.Provider value= {{user, setUser, authenticated, setAuthenticated, changeUsername, sendTweet, deleteTweet, likeTweet, tweet, setTweet, tweets, setTweets, colorList, setColorList, colorHex, color, setColor}} >
         {children}
     </AppFirebaseContext.Provider>
 );
