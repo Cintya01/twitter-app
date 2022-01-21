@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: 'Silkscreen';
-  src: url(../src/Fonts/slkscr.ttf);
+  src: url(../Resources/Fonts/slkscr.ttf);
 }
 
 .silk-font{
@@ -85,28 +85,77 @@ textarea {
  }
 
 .tweet-cont{
+  border-top: 2px solid #60265B;
   align-items: center;
-  border: 1px solid red;
   flex-flow: column nowrap;
 }
 
 .tweet-cont-ind{
   width: 605px;
-  height: auto;
+  height: 300px;
   border-bottom: 2px solid #60265B;
+  /* border: 1px solid white; */
   padding: 20px;
   font-family: 'Fira Code', monospace;
 }
 
-
-
-.delete {
-  width: 24px;
-height: 20px;
+.photo-space{
+  display: flex;
+  justify-content: center;
+  height:250px;
+  width: 70px;
+  
 }
 .profile-img{
   width: 56px;
   height: 56px;
   border-radius: 50px;
   margin-right: 10px;
+ }
+
+ .text-cont{
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
 }
+
+.username{
+  font-family: 'Silkscreen';
+  width: auto;
+  height: 18px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #800FFF;
+  box-shadow: 0 4px 0px -2px  #800FFF;
+  color:  #2E132C;
+}
+
+.delete{
+  padding-left: 150px;
+  height: auto;
+}
+.svg-delete {
+  width: 24px;
+  height: 20px;
+}
+  
+.first-row{
+  display: flex;
+  flex-flow: row wrap
+} 
+
+.tweet-space{
+ text-align: start;
+ margin-top: 20px;
+ width: 500px;
+ height: 136px;
+ font-size: 18px;
+ font-weight: 450;
+}
+
+.email-text{
+  color: #60265B;
+}
+
+
+
