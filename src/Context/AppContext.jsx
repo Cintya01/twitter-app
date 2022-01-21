@@ -12,6 +12,7 @@ export default function FirebaseProvider({ children }) {
     const [color, setColor] = useState();
     const [nickName, setNickName] = useState("");
     const [tweets, setTweets] = useState ([]); 
+    const [colorList, setColorList] = useState();
     const [tweet, setTweet] = useState({  
         autor: "",
         tweet: "",
@@ -127,20 +128,20 @@ useEffect(() => {
                 firestore.doc (`Tweets-s4/${id}`).update({likes: likes + 1});
             }
 
-            const colorHex = [
-                { n: "red", hex:"#F50D5A", choose: false},
-                { n: "orange", hex:"#FF865C", choose: false},
-                { n: "yellow", hex:"FFEA5C", choose: false},
-                { n: "green", hex:"00DA76", choose: false},
-                { n: "lightBlue", hex:"#0096CE", choose: false},
-                { n: "Purple", hex:"#800FFF", choose: false}
-            ]
+        //    const colors = [
+        //         { n: "red", hex:"#F50D5A", choose: false},
+        //         { n: "orange", hex:"#FF865C", choose: false},
+        //         { n: "yellow", hex:"FFEA5C", choose: false},
+        //         { n: "green", hex:"00DA76", choose: false},
+        //         { n: "lightBlue", hex:"#0096CE", choose: false},
+        //         { n: "Purple", hex:"#800FFF", choose: false}
+        //     ];
 
-            const [colorList, setColorList] = useState(colorHex[0]);
+           
             
 
 return (
-    <AppFirebaseContext.Provider value= {{user, setUser, authenticated, setAuthenticated, changeUsername, sendTweet, deleteTweet, likeTweet, tweet, setTweet, tweets, setTweets, colorList, setColorList, colorHex, color, setColor}} >
+    <AppFirebaseContext.Provider value= {{user, setUser, authenticated, setAuthenticated, changeUsername, sendTweet, deleteTweet, likeTweet, tweet, setTweet, tweets, setTweets, colorList, setColorList, color, setColor}} >
         {children}
     </AppFirebaseContext.Provider>
 );

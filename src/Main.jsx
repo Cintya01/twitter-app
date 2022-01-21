@@ -1,17 +1,20 @@
  // MAIN LOG IN - WELCOME - COLOR AND NICKNAME SET
 
 import '../src/Styles/Main-Home.css'
-import React, {useState, useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import { AppFirebaseContext } from "./Context/AppContext";
 import { useNavigate } from "react-router-dom";
 import bigLogo from "../src/Resources/svg/logo_big.svg";
 import {loginConGoogle, auth} from './firebase';
 import black from "../src/Resources/svg/google_sign_in.svg";
+import {colorList} from "./colorList";
+import ColorPicker from './Color';
 
 function Main() {
 
-    const {user, setUser, changeUsername, authenticated, setAuthenticated, nickName, colorList, setColorList, colorHex} = useContext(AppFirebaseContext)
-    const [chooseColor, setChooseColor] = useState(undefined)
+    const {user, setUser, changeUsername, authenticated, setAuthenticated, nickName} = useContext(AppFirebaseContext)
+    const [colors, setColors] = useState(colorList);
+    const [colorPick, setColorPick] = useState(undefined);
 
 
     let navigate = useNavigate();
@@ -26,27 +29,31 @@ function Main() {
         auth.signOut();
      }
 
-    //  const setColor  = (e, color) => {
-    //      const colorId = e.target.id;
-       
-   
-    //      const colorOption = (color) => {
-    //          return (
-    //              <div
-    //                  onClick={() => setColorList(color)}
-    //                  key= {color.hex}
-    //                  style= {{backgroundColor: color.hex}}
-    //              />
-    //          );
-    //      };
+     const setColor = (e, color) =>{
+         const cId = e.target.id;
 
-    //      const colorOptions = () => {
-    //          return colorHex.map((color) => {
-    //              return colorOption(color);
-    //          });
-    //      };
-    //      return <div>{colorOptions()}</div>;
-    //  }
+        let newColorList = colors.map((color) => {
+            if (cId === color.hex) {
+                return {
+                    n: color.name,
+                    hex: color.hex,
+                    choosed: !color.choose 
+                }
+                    
+                
+            } else {
+                return {
+                    n: color.name,
+                    hex: color.hex,
+                    choosed: false 
+                }
+            }
+        })
+        setColors(newColorList);
+        setColorPick( color );
+     };
+
+
     
     return (  
         
@@ -77,17 +84,14 @@ function Main() {
 
                 <p>Select your favorite color</p>
                 <div className="color-cont">
-                   <div className="color-square">
-                        {colorHex.map((color) =>{                            
-                               
-                                             <div 
-                                                 onClick={() => setColorList(color)}
-                                                 key= {color.hex}
-                                                 style= {{backgroundColor: color.hex}}
-                                             />
-                                      
-                        })}
-              </div>
+                   <ul className="color-square">
+                   {colors.map((color) =>
+                        <ColorPicker
+                        color ={color}
+                        handle= {setColor}
+                        key={color.hex}/>
+                   )}
+              </ul>
                    
                 </div>
 
