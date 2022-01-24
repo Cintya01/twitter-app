@@ -45,10 +45,11 @@ function Twitter() {
                         onChange={handleChange}
                         value= {tweet.tweet}
                         cols="30"
-                        rows= "5"
+                        rows= "4"
                         placeholder="What's Happening?..."
+                        maxLength="200"
                 />
-                <div>200 max</div>
+                <div>200 max.</div>
                 <div>                
                     <button className="btn-post silk-font" onClick={sendTweet}> POST </button>
                     </div>

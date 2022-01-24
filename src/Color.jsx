@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 
-function ColorPicker({color, handleColor}) {   
+
+function ColorPicker({color, handleColor}) {  
+   
   
  const ColorStyle = color.choose ? "color-square-border" : undefined;
     
@@ -13,6 +15,7 @@ function ColorPicker({color, handleColor}) {
                      id= {color.hex}
                      onClick = {(e) => handleColor(e, color)}
                      style= {{backgroundColor: color.hex}}
+                                          
                  />
              );
         

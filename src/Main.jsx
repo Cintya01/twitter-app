@@ -10,11 +10,12 @@ import black from "../src/Resources/svg/google_sign_in.svg";
 import {colorHexList} from "./colorList";
 import ColorPicker from './Color';
 
+
 function Main() {
 
-    const {user, setUser, changeUsername, authenticated, setAuthenticated, nickName} = useContext(AppFirebaseContext)
+    const {user, setUser, authenticated, setAuthenticated, nickName, changeUsername,setColorPick, ColorPickedbyUser} = useContext(AppFirebaseContext)
     const [colors, setColors] = useState(colorHexList);
-    const [colorPick, setColorPick] = useState(undefined);
+    // const [colorPick, setColorPick] = useState(undefined);
 
 
     let navigate = useNavigate();
@@ -31,30 +32,29 @@ function Main() {
 
      const setColor = (e, color) =>{
          const cId = e.target.id;
+         console.log(e.target.id);
 
         let newColorList = colors.map((color) => {
             if (cId === color.hex) {
-                return {
+               
+                return {                   
                     n: color.name,
                     hex: color.hex,
-                    choosed: !color.choose 
-                }
-                    
-                
+                    choose: !color.choose 
+                }               
             } else {
                 return {
                     n: color.name,
                     hex: color.hex,
-                    choosed: false 
+                    choose: false 
                 }
             }
         })
         setColors(newColorList);
         setColorPick( color );
      };
-
-
-    
+     
+     
     return (  
         
         <div className="container">     
@@ -84,7 +84,7 @@ function Main() {
 
                 <p>Select your favorite color</p>
                 <div className="color-cont">
-                <ul>
+                <ul onClick={ColorPickedbyUser}>
                    {colors.map((color) =>
                         <ColorPicker
                             color ={color}

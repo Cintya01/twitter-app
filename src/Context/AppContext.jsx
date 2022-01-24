@@ -9,7 +9,7 @@ export default function FirebaseProvider({ children }) {
 
     const [user, setUser] = useState(null);
     const [authenticated, setAuthenticated] = useState(false); 
-    // const [color, setColor] = useState();
+    const [colorPick, setColorPick] = useState(undefined);
     const [nickName, setNickName] = useState("");
     const [tweets, setTweets] = useState ([]); 
     const [tweet, setTweet] = useState({  
@@ -38,7 +38,7 @@ useEffect(() => {
                 name: user.displayName,
                 photoURL: user.photoURL,
                 nickName: nickName,
-                // color: color,
+                // color: colorPick,
             }
          //guardar datos de userObjetct
          firestore.collection("Users-s4").doc(userObject.uid).set(userObject,{merge:true}).then((docRef)=>{
@@ -51,16 +51,28 @@ useEffect(() => {
 
     const changeUsername = (e) => {
         setNickName(e.target.value);
-
+    //Devuelve data con Nickname Incluido
         firestore.collection("Users-s4").doc(user.uid).set({
             photoURL: user.photoURL,
             name: user.name,                       
             uid : user.uid,
             email : user.email,
             nickName: nickName,
-
         })
         }
+
+        // const ColorPickedbyUser = (e) => {
+        //     setColorPick(e.target.value);
+        // //Devuelve data con Nickname Incluido
+        //     firestore.collection("Users-s4").doc(user.uid).set({
+        //         photoURL: user.photoURL,
+        //         name: user.name,                       
+        //         uid : user.uid,
+        //         email : user.email,
+        //         nickName: nickName,
+        //         color: colorPick,
+        //     })
+        //     }
 
   //   OBTENER DATOS DE FIREBASE Y USER DATA
         useEffect (() => {
@@ -135,7 +147,7 @@ return (
         setUser, 
         authenticated, 
         setAuthenticated, 
-        changeUsername, 
+        changeUsername,
         sendTweet, 
         deleteTweet, 
         likeTweet, 
@@ -143,6 +155,8 @@ return (
         setTweet, 
         tweets, 
         setTweets,
+        setColorPick,
+        
         }} >
         {children}
     </AppFirebaseContext.Provider>
