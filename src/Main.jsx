@@ -9,20 +9,16 @@ import {loginConGoogle, auth} from './firebase';
 import black from "../src/Resources/svg/google_sign_in.svg";
 import {colorHexList} from "./colorList";
 import ColorPicker from './Color';
+import {firestore} from './firebase.js';
 
 
 function Main() {
 
-    const {user, setUser, authenticated, setAuthenticated, nickName, changeUsername,setColorPick, ColorPickedbyUser} = useContext(AppFirebaseContext)
+    const {user, setUser, authenticated, setAuthenticated, nickName,  changeUsername, setColorPick, colorPick } = useContext(AppFirebaseContext)
     const [colors, setColors] = useState(colorHexList);
-    // const [colorPick, setColorPick] = useState(undefined);
-
-
     let navigate = useNavigate();
 
-     function handleClick() {
-         navigate("/twitter");
-    }
+   
 
      let logout = () => {
         setAuthenticated(false);
@@ -38,13 +34,13 @@ function Main() {
             if (cId === color.hex) {
                
                 return {                   
-                    n: color.name,
+                    n: color.n,
                     hex: color.hex,
                     choose: !color.choose 
                 }               
             } else {
                 return {
-                    n: color.name,
+                    n: color.n,
                     hex: color.hex,
                     choose: false 
                 }
@@ -53,7 +49,23 @@ function Main() {
         setColors(newColorList);
         setColorPick( color );
      };
-     
+
+     //Setea color de Usuario y envía a Firebase para refrescar toda la data
+
+     const HandleColorNickChangebyUser = () => {  
+        
+        firestore.collection("Users-s4").doc(user.uid).set({
+            photoURL: user.photoURL,
+            name: user.name,                       
+            uid : user.uid,
+            email : user.email,
+            nickName: user.nickName,
+            colorPick: colorPick.hex
+        });
+       
+        navigate("/twitter")
+        
+   }  
      
     return (  
         
@@ -84,24 +96,26 @@ function Main() {
 
                 <p>Select your favorite color</p>
                 <div className="color-cont">
-                <ul onClick={ColorPickedbyUser}>
+                <ul>
                    {colors.map((color) =>
                         <ColorPicker
                             color ={color}
                             handleColor= {setColor}
-                            key={color.hex}/>
+                            key={color.hex}
+                            n={color.n}/>
                    )}
               </ul>
                 </div>
                 
-
-                <button className="gButton" onClick={handleClick} >Continue</button>
+               
+                <button className="gButton" onClick={HandleColorNickChangebyUser} >Continue</button>
                 <button className="log-out" onClick={logout}>Log Out</button>
                 </>
                 ) : (
                     <>
                     <h1 className="text-title white">Lorem Ipsum Dolor </h1>
                     <h3 className="white"> Lorem ipsum dolor sir amet, consectetur adipiscing elit </h3>
+                
                    <button  className="gButton" onClick={loginConGoogle}>
                          <img  className="log-in" src={black} alt="Login with Google"/>
                    </button>

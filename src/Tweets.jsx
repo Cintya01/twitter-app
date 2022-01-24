@@ -5,7 +5,7 @@ import React, {useContext} from 'react';
 import borrar from "../src/Resources/svg/delete.svg";
 import defaultPhoto from "../src/Resources/svg/profilePicDefault.svg";
 import ProfilePic from "../src/Resources/svg/ornacia.png"
-import logo from "../src/Resources/svg/Logo_Alone.svg"
+import logo from "../src/Resources/svg/Logo_Alone.svg" 
 import name from "../src/Resources/svg/Name_Logo.svg"
 import heart from "../src/Resources/svg/heart.svg"
 
@@ -32,7 +32,10 @@ function Twitter() {
         <div>
             <div className="header-cont flex">
         <nav className="header-nav-cont flex">
-            <img className="profile-img-header" src={ProfilePic} alt="Profile Pic" onClick={handleClick}/>
+
+        {user.photoURL === "" ?
+                             <img className="profile-img-header" src={""} alt="profile pic" onClick={handleClick}/>
+                             :  <img className="profile-img-header" src={user.photoURL} alt="profile pic" onClick={handleClick}/> }
             <img className="logo-cont-header" src={logo} alt="Logo"/>
             <img className="devs-header" src={name} alt="DEVSUNITED"/>
         </nav>

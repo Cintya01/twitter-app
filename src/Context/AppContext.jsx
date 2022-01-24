@@ -9,8 +9,8 @@ export default function FirebaseProvider({ children }) {
 
     const [user, setUser] = useState(null);
     const [authenticated, setAuthenticated] = useState(false); 
-    const [colorPick, setColorPick] = useState(undefined);
     const [nickName, setNickName] = useState("");
+    const [colorPick, setColorPick] = useState(undefined);
     const [tweets, setTweets] = useState ([]); 
     const [tweet, setTweet] = useState({  
         autor: "",
@@ -37,7 +37,7 @@ useEffect(() => {
                 uid: user.uid,
                 name: user.displayName,
                 photoURL: user.photoURL,
-                nickName: nickName,
+                // nickName: nickName,
                 // color: colorPick,
             }
          //guardar datos de userObjetct
@@ -61,19 +61,6 @@ useEffect(() => {
         })
         }
 
-        // const ColorPickedbyUser = (e) => {
-        //     setColorPick(e.target.value);
-        // //Devuelve data con Nickname Incluido
-        //     firestore.collection("Users-s4").doc(user.uid).set({
-        //         photoURL: user.photoURL,
-        //         name: user.name,                       
-        //         uid : user.uid,
-        //         email : user.email,
-        //         nickName: nickName,
-        //         color: colorPick,
-        //     })
-        //     }
-
   //   OBTENER DATOS DE FIREBASE Y USER DATA
         useEffect (() => {
 
@@ -94,7 +81,7 @@ useEffect(() => {
                         email: doc.data().email,
                         photoURL: doc.data().photoURL,
                         nickName: doc.data().nickName,
-                        color: doc.data().color,
+                        colorPick: doc.data().color,
                     };
                 });
                  setTweets(tweets);
@@ -155,8 +142,9 @@ return (
         setTweet, 
         tweets, 
         setTweets,
-        setColorPick,
         
+        setColorPick,
+        colorPick,
         }} >
         {children}
     </AppFirebaseContext.Provider>
