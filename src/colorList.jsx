@@ -1,4 +1,4 @@
-export const colorList = [
+export const colorHexList = [
     { n: "red", hex:"#F50D5A", choose: false},
     { n: "orange", hex:"#FF865C", choose: false},
     { n: "yellow", hex:"FFEA5C", choose: false},

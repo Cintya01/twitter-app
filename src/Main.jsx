@@ -7,13 +7,13 @@ import { useNavigate } from "react-router-dom";
 import bigLogo from "../src/Resources/svg/logo_big.svg";
 import {loginConGoogle, auth} from './firebase';
 import black from "../src/Resources/svg/google_sign_in.svg";
-import {colorList} from "./colorList";
+import {colorHexList} from "./colorList";
 import ColorPicker from './Color';
 
 function Main() {
 
     const {user, setUser, changeUsername, authenticated, setAuthenticated, nickName} = useContext(AppFirebaseContext)
-    const [colors, setColors] = useState(colorList);
+    const [colors, setColors] = useState(colorHexList);
     const [colorPick, setColorPick] = useState(undefined);
 
 
@@ -84,7 +84,7 @@ function Main() {
 
                 <p>Select your favorite color</p>
                 <div className="color-cont">
-                   <ul className="color-square">
+                <ul>
                    {colors.map((color) =>
                         <ColorPicker
                         color ={color}
@@ -92,8 +92,8 @@ function Main() {
                         key={color.hex}/>
                    )}
               </ul>
-                   
                 </div>
+                
 
                 <button className="gButton" onClick={handleClick} >Continue</button>
                 <button className="log-out" onClick={logout}>Log Out</button>

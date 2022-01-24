@@ -9,10 +9,9 @@ export default function FirebaseProvider({ children }) {
 
     const [user, setUser] = useState(null);
     const [authenticated, setAuthenticated] = useState(false); 
-    const [color, setColor] = useState();
+    // const [color, setColor] = useState();
     const [nickName, setNickName] = useState("");
     const [tweets, setTweets] = useState ([]); 
-    const [colorList, setColorList] = useState();
     const [tweet, setTweet] = useState({  
         autor: "",
         tweet: "",
@@ -127,21 +126,24 @@ useEffect(() => {
                 if (!likes) likes = 0;
                 firestore.doc (`Tweets-s4/${id}`).update({likes: likes + 1});
             }
-
-        //    const colors = [
-        //         { n: "red", hex:"#F50D5A", choose: false},
-        //         { n: "orange", hex:"#FF865C", choose: false},
-        //         { n: "yellow", hex:"FFEA5C", choose: false},
-        //         { n: "green", hex:"00DA76", choose: false},
-        //         { n: "lightBlue", hex:"#0096CE", choose: false},
-        //         { n: "Purple", hex:"#800FFF", choose: false}
-        //     ];
-
-           
+      
             
 
 return (
-    <AppFirebaseContext.Provider value= {{user, setUser, authenticated, setAuthenticated, changeUsername, sendTweet, deleteTweet, likeTweet, tweet, setTweet, tweets, setTweets, colorList, setColorList, color, setColor}} >
+    <AppFirebaseContext.Provider value= {
+        {user, 
+        setUser, 
+        authenticated, 
+        setAuthenticated, 
+        changeUsername, 
+        sendTweet, 
+        deleteTweet, 
+        likeTweet, 
+        tweet, 
+        setTweet, 
+        tweets, 
+        setTweets,
+        }} >
         {children}
     </AppFirebaseContext.Provider>
 );

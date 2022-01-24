@@ -1,27 +1,25 @@
-import '../src/Styles/Main-Home.css'
-import React, {useContext} from 'react';
-import { AppFirebaseContext } from "./Context/AppContext";
-import {colorList} from "./colorList";
+import '../src/Styles/Main-Home.css';
+// import PropTypes from 'prop-types';
+import React from 'react';
 
-function ColorPicker() {
-    const {setColorList} = useContext(AppFirebaseContext);
-    const colorOption = (color) => {
+
+function ColorPicker(color, handle) {   
+  
+ const ColorStyle = color.choose ? "color-square-border" : undefined;
+    
              return (
-                 <div
-                     onClick={() => setColorList(color)}
-                     key= {color.hex}
-                     className= "color"
+                 <li
+                     className= {`color-square ${ColorStyle} `}
+                     id= {color.hex}
+                     onClick = {(e) => handle (e, color)}
                      style= {{backgroundColor: color.hex}}
                  />
              );
-         };
-
-         const colorOptions = () => {
-             return colorList.map((color) => {
-                 return colorOption(color);
-             });
-         };
-         return <div>{colorOptions()}</div>;
+        
      }
 
      export default ColorPicker;
+
+    //  ColorPicker.PropTypes = {
+         
+    //  }
