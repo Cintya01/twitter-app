@@ -18,6 +18,7 @@ function Twitter() {
     function handleClick() {        
         navigate("/UserMainPage");        
     }
+    
 
     const handleChange = (e) =>{
         let newTweet = {
@@ -34,8 +35,8 @@ function Twitter() {
         <nav className="header-nav-cont flex">
 
         {user.photoURL === "" ?
-                             <img className="profile-img-header" src={""} alt="profile pic" onClick={handleClick}/>
-                             :  <img className="profile-img-header" src={user.photoURL} alt="profile pic" onClick={handleClick}/> }
+                             <img className="profile-img-header" src={""} alt="profile pic" onClick={handleClick} />
+                             :  <img className="profile-img-header" src={user.photoURL} alt="profile pic" onClick={handleClick} /> }
             <img className="logo-cont-header" src={logo} alt="Logo"/>
             <img className="devs-header" src={name} alt="DEVSUNITED"/>
         </nav>
