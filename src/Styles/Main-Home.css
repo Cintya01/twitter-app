@@ -93,7 +93,11 @@ h3 {
     letter-spacing: -0.333333px;
     color: #914D8B;
 }
-  
+
+.input-type::placeholder{
+    padding-left: 10px;
+    color: #914D8B;
+}
 
 .gButton {
     font-family: 'Silkscreen';
@@ -138,17 +142,23 @@ p span {
 .color-cont{
     width: 425px;
     height: 100px;
-    display: flex;
-    justify-content: space-between;
-    flex-flow: row wrap;
+    margin-top: 20px;
 }
 
-.color-square{    
+ul{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap; 
+}
+
+.color-square{  
     width: 58px;
     height: 58px;
     border: none;
     list-style: none;
 }
+
+
 
 .color-square-border{
     cursor: pointer;

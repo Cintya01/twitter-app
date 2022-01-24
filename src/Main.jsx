@@ -87,9 +87,9 @@ function Main() {
                 <ul>
                    {colors.map((color) =>
                         <ColorPicker
-                        color ={color}
-                        handle= {setColor}
-                        key={color.hex}/>
+                            color ={color}
+                            handleColor= {setColor}
+                            key={color.hex}/>
                    )}
               </ul>
                 </div>
