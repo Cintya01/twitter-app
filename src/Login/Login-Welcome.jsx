@@ -1,15 +1,15 @@
  // MAIN LOG IN - WELCOME - COLOR AND NICKNAME SET
 
-import '../src/Styles/Main-Home.css'
+import '../Styles/Main-Home.css'
 import React, {useContext, useState} from 'react';
-import { AppFirebaseContext } from "./Context/AppContext";
+import { AppFirebaseContext } from "../Context/AppContext";
 import { useNavigate } from "react-router-dom";
-import bigLogo from "../src/Resources/svg/logo_big.svg";
-import {loginConGoogle, auth} from './firebase';
-import black from "../src/Resources/svg/google_sign_in.svg";
-import {colorHexList} from "./colorList";
-import ColorPicker from './Color';
-import {firestore} from './firebase.js';
+import bigLogo from "../Resources/svg/logo_big.svg";
+import {loginConGoogle, auth} from '../firebase';
+import black from "../Resources/svg/google_sign_in.svg";
+import {colorHexList} from "../colorList";
+import ColorPicker from '../Color';
+import {firestore} from '../firebase.js';
 
 
 function Main() {

@@ -2,7 +2,7 @@ import '../src/Styles/App.css';
 // import {firestore} from './firebase';
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
-import Main from './Main';
+import Main from './Login/Login-Welcome';
 import UserMainPage from './UserMainPage';
 import Twitter from './Tweets';
 
