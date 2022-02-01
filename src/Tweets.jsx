@@ -11,11 +11,14 @@ import heart from "../src/Resources/svg/heart.svg"
 
 function Twitter() {
 
-    const {user, tweets, setTweet, sendTweet, deleteTweet,likeTweet, tweet} = useContext(AppFirebaseContext)
+    const {user, tweets, setTweet, sendTweet, deleteTweet,likeTweet, tweet} = useContext(AppFirebaseContext);
+    
 
     let navigate = useNavigate();
 
     function handleClick() {        
+        var element = document.getElementById("myID");
+        element.style.backgroundColor=user.colorPick.value;
         navigate("/UserMainPage");        
     }
     
@@ -27,15 +30,16 @@ function Twitter() {
         };
         setTweet(newTweet);
     };
-  
+
+    
+
 
       return (
         <div>
             <div className="header-cont flex">
         <nav className="header-nav-cont flex">
-
         {user.photoURL === "" ?
-                             <img className="profile-img-header" src={""} alt="profile pic" onClick={handleClick} />
+                             <img className="profile-img-header" src={""} alt="profile pic" onClick={handleClick}  />
                              :  <img className="profile-img-header" src={user.photoURL} alt="profile pic" onClick={handleClick} /> }
             <img className="logo-cont-header" src={logo} alt="Logo"/>
             <img className="devs-header" src={name} alt="DEVSUNITED"/>
@@ -65,6 +69,8 @@ function Twitter() {
             {tweets.map((tweet) => {
 
                 let date = tweet.dateCreated.toDate().toLocaleDateString();
+              
+
 
                return (   
                              
@@ -76,7 +82,7 @@ function Twitter() {
                         </div>
                         <div className="text-cont">
                         <div className="first-row">
-                            <p className="username" onClick={handleClick}>{tweet.autor}</p>
+                            <p id="myID" className="username" onClick={handleClick}>{tweet.autor}</p>
                             <span>- {date} .</span>
                         
                             {tweet.userId === user.uid ?

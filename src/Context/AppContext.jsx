@@ -18,7 +18,9 @@ export default function FirebaseProvider({ children }) {
         dateCreated: "",
         likes: 0,
         userId: "",
-        email: ""});
+        email: "",
+        photoURL: "",
+        colorPick: ""});
 
   //   PARA AUTENTICAR AL USER Y GUARDAR SUS DATOS EN FIREBASE    
 useEffect(() => {  
@@ -37,8 +39,6 @@ useEffect(() => {
                 uid: user.uid,
                 name: user.displayName,
                 photoURL: user.photoURL,
-                // nickName: nickName,
-                // color: colorPick,
             }
          //guardar datos de userObjetct
          firestore.collection("Users-s4").doc(userObject.uid).set(userObject,{merge:true}).then((docRef)=>{
@@ -81,7 +81,7 @@ useEffect(() => {
                         email: doc.data().email,
                         photoURL: doc.data().photoURL,
                         nickName: doc.data().nickName,
-                        colorPick: doc.data().color,
+                        colorPick: doc.data().colorPick,
                     };
                 });
                  setTweets(tweets);
@@ -97,19 +97,19 @@ useEffect(() => {
                  e.preventDefault();
                     tweet.photoURL = user.photoURL;
                     tweet.autor  = user.nickName ? user.nickName : user.name;
-                    // SI HAY PROPS USER NICKNAME MUESTRE SI NO, NAME ? : 
                     tweet.dateCreated = new Date();
                     tweet.userId = user.uid;
                     tweet.email = user.email;
+                    tweet.colorPick = user.colorPick;
                 
-            console.log(tweet)
             firestore.collection("Tweets-s4").add(tweet)
             setTweet({  autor: "",
                     tweet: "",
                     dateCreated: "",
                     likes: 0,
                     userId: "",
-                    email: ""});
+                    email: "",
+                colorPick:""});
     
             };
     

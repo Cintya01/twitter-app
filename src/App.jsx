@@ -14,27 +14,9 @@ function App() {
     <div className="App"> 
     
     <Routes>      
-        <Route exact path="/"
-         element= 
-          {<Main/>}/>               
-        <Route path="/twitter" 
-        element=  
-          {<Twitter 
-              // user={user} 
-              // tweets={msn} 
-              // setTweets={setMsn}
-              // tweet={tweet}
-              // setTweet={setTweet}
-              />}/>
-        <Route path="/UserMainPage" 
-        element= 
-        {<UserMainPage 
-          // user={user} 
-          // tweets={msn} 
-          // setTweets={setMsn}
-          // tweet={tweet}
-          // setTweet={setTweet}
-          />}/>
+        <Route exact path="/" element= {<Main/>}/>               
+        <Route path="/twitter" element= {<Twitter/>}/>
+        <Route path="/UserMainPage" element= {<UserMainPage/>}/>
       </Routes>
      </div>
   );

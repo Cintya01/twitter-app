@@ -11,7 +11,8 @@ import heart from "../src/Resources/svg/heart.svg"
 
 function UserMainPage() {
 
-    const {user, tweets, setTweet, sendTweet, deleteTweet,likeTweet, tweet} = useContext(AppFirebaseContext)
+    const {user, tweets, deleteTweet,likeTweet, } = useContext(AppFirebaseContext);
+    
 
     let navigate = useNavigate();
 
@@ -20,13 +21,13 @@ function UserMainPage() {
     }
     
 
-    const handleChange = (e) =>{
-        let newTweet = {
-            ...tweet,
-            [e.target.name]: e.target.value
-        };
-        setTweet(newTweet);
-    };
+    // const handleChange = (e) =>{
+    //     let newTweet = {
+    //         ...tweet,
+    //         [e.target.name]: e.target.value
+    //     };
+    //     setTweet(newTweet);
+    // };
   
 
       return (

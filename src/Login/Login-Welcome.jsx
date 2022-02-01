@@ -26,6 +26,8 @@ function Main() {
         auth.signOut();
      }
 
+     //Elección de color
+
      const setColor = (e, color) =>{
          const cId = e.target.id;
          console.log(e.target.id);
