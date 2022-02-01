@@ -30,8 +30,10 @@ function Twitter() {
         };
         setTweet(newTweet);
     };
-
     
+                   
+        
+        
 
 
       return (
@@ -57,6 +59,7 @@ function Twitter() {
                         placeholder="What's Happening?..."
                         maxLength="200"
                 />
+
                 <div>200 max.</div>
                 <div>                
                     <button className="btn-post silk-font" onClick={sendTweet}> POST </button>
@@ -68,8 +71,16 @@ function Twitter() {
 
             {tweets.map((tweet) => {
 
-                let date = tweet.dateCreated.toDate().toLocaleDateString();
-              
+
+        //DA FORMATO A LA FECHA DE FIREBASE PARA MOSTRARLA EN FORMATO LOCAL
+        const format = (dates, locale, options) =>
+                new Intl.DateTimeFormat(locale,options).format(dates)
+        let date = tweet.dateCreated.toDate() 
+
+        const posted = format(date,'es', { day: 'numeric', month: 'short' });
+        
+                        
+                      
 
 
                return (   
@@ -81,12 +92,12 @@ function Twitter() {
                              :  <img className="profile-img" src={tweet.photoURL} alt="profile pic"/> }
                         </div>
                         <div className="text-cont">
-                        <div className="first-row">
+                        <div className="user-date">
                             <p id="myID" className="username" onClick={handleClick}>{tweet.autor}</p>
-                            <span>- {date} .</span>
+                            <span>  -{posted}.</span>
                         
                             {tweet.userId === user.uid ?
-                            <span onClick={() => deleteTweet(tweet.id)} className="delete">
+                            <span onClick={() => deleteTweet(tweet.id)}>
                                 <img className="svg-delete" src={borrar} alt="delete"/>
                             </span> : null
                             }

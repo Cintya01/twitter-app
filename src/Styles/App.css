@@ -130,16 +130,12 @@ textarea {
   color:  #2E132C;
 }
 
-.delete{
-  padding-left: 150px;
-  height: auto;
-}
 .svg-delete {
   width: 24px;
   height: 20px;
 }
   
-.first-row{
+.user-date{
   display: flex;
   flex-flow: row wrap
 } 
