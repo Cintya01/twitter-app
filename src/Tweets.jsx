@@ -7,7 +7,8 @@ import defaultPhoto from "../src/Resources/svg/profilePicDefault.svg";
 import ProfilePic from "../src/Resources/svg/ornacia.png"
 import logo from "../src/Resources/svg/Logo_Alone.svg" 
 import name from "../src/Resources/svg/Name_Logo.svg"
-import heart from "../src/Resources/svg/heart.svg"
+import heartred from "../src/Resources/svg/heart_red.svg"
+import heartwhite from "../src/Resources/svg/heart_white.svg"
 
 function Twitter() {
 
@@ -60,8 +61,8 @@ function Twitter() {
                         maxLength="200"
                 />
 
-                <div>200 max.</div>
-                <div>                
+                <div className='max flex'>200 max.</div>
+                <div className='flex max'>                
                     <button className="btn-post silk-font" onClick={sendTweet}> POST </button>
                     </div>
                 </form>
@@ -91,17 +92,19 @@ function Twitter() {
                              <img className="profile-img" src={defaultPhoto} alt="profile pic"/>
                              :  <img className="profile-img" src={tweet.photoURL} alt="profile pic"/> }
                         </div>
-                        <div className="text-cont">
-                        <div className="user-date">
-                            <p id="myID" className="username" onClick={handleClick}>{tweet.autor}</p>
+                         <div className="text-cont"> 
+                         <div className="user-date flex">                       
+                            <p id="myID" className="username" onClick={handleClick}>{tweet.autor}</p>       
                             <span>  -{posted}.</span>
+                            </div>
                         
                             {tweet.userId === user.uid ?
-                            <span onClick={() => deleteTweet(tweet.id)}>
-                                <img className="svg-delete" src={borrar} alt="delete"/>
+                            <span onClick={() => deleteTweet(tweet.id)} className='delete flex'>
+                                <img className="svg-delete flex" src={borrar} alt="delete"/>
                             </span> : null
                             }
-                        </div>
+                            
+                        
 
                        
                         <div className='flex tweet-space'>
@@ -111,15 +114,20 @@ function Twitter() {
             
                         {tweet.userId !== user.uid ?
                         
-                        <span onClick={() => likeTweet(tweet.id, tweet.likes)} className="likes" >
-                        <img height="13px" src={heart} alt="" />
-                        <span>{tweet.likes ? tweet.likes : 0}    </span>
+                        <span onClick={() => likeTweet(tweet.id, tweet.likes)} className="flex" >
+                        <img className='heart' src={heartred} alt="" />
+                        <span className='likes flex'>{tweet.likes ? tweet.likes : 0}    </span>
                         </span>
-                        : null}
+                        : 
+                        <span className='flex'>
+                        <img className='heart flex' src={heartwhite} alt="" />
+                        <span className='likes flex'>{tweet.likes}    </span>
+                        </span>
+                        }
                          <p className="email-text">{tweet.email}</p>
                     </div>
                     </div>
-                    </div>
+                </div>
               );
             })}
             </section>
