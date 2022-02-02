@@ -178,8 +178,32 @@ textarea {
   align-items: center;
 }
 
+/* progress{
+  appearance: none;
+  height: 3px;
+  width: auto;
+  border: none;
+  background: #00DA76;
+} */
+
+
+progress {
+  border: none;
+  height: 3px;
+  width: auto;
+  background: #00DA76;
+}
+
+progress::-webkit-progress-bar {
+  background: #150714;
+}
+
 textarea::placeholder{
   padding-left: 10px;
   color: #914D8B;
+}
+
+.count-position{
+  justify-content: space-between;
 }
 

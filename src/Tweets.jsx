@@ -1,7 +1,7 @@
 import '../src/Styles/App.css';
 import { AppFirebaseContext } from "./Context/AppContext";
 import { useNavigate } from "react-router-dom";
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import borrar from "../src/Resources/svg/delete.svg";
 import defaultPhoto from "../src/Resources/svg/profilePicDefault.svg";
 import ProfilePic from "../src/Resources/svg/ornacia.png"
@@ -13,7 +13,7 @@ import heartwhite from "../src/Resources/svg/heart_white.svg"
 function Twitter() {
 
     const {user, tweets, setTweet, sendTweet, deleteTweet,likeTweet, tweet} = useContext(AppFirebaseContext);
-    
+    let [letterCount, setLetterCount] = useState(0);
 
     let navigate = useNavigate();
 
@@ -30,13 +30,14 @@ function Twitter() {
             [e.target.name]: e.target.value
         };
         setTweet(newTweet);
+        letterCount = 0;
+        if(e.target.value){
+            setLetterCount(e.target.value.length)
+        }
+        console.log(letterCount)
+        
     };
     
-                   
-        
-        
-
-
       return (
         <div>
             <div className="header-cont flex">
@@ -52,6 +53,7 @@ function Twitter() {
             <img className="profile-img" src={ProfilePic} alt="Profile Pic" onClick={handleClick}/>
                 <form>
                     <textarea
+                        
                         name="tweet"
                         onChange={handleChange}
                         value= {tweet.tweet}
@@ -59,9 +61,14 @@ function Twitter() {
                         rows= "4"
                         placeholder="What's Happening?..."
                         maxLength="200"
+                        
                 />
 
+                <progress  value={letterCount} min="0" max="200" className='flex'></progress>
+                <div className='flex count-position'>
+                <p>{letterCount.toString()}</p>
                 <div className='max flex'>200 max.</div>
+                </div>
                 <div className='flex max'>                
                     <button className="btn-post silk-font" onClick={sendTweet}> POST </button>
                     </div>
@@ -78,12 +85,8 @@ function Twitter() {
                 new Intl.DateTimeFormat(locale,options).format(dates)
         let date = tweet.dateCreated.toDate() 
 
-        const posted = format(date,'es', { day: 'numeric', month: 'short' });
-        
-                        
+        const posted = format(date,'es', { day: 'numeric', month: 'short' });                     
                       
-
-
                return (   
                              
                     <div className="tweet-cont-ind flex" key={tweet.id}>
