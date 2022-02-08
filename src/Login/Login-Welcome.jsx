@@ -1,31 +1,24 @@
  // MAIN LOG IN - WELCOME - COLOR AND NICKNAME SET
 
-import '../Styles/Main-Home.css'
+import '../Styles/Login-Welcome.css';
 import React, {useContext, useState} from 'react';
 import { AppFirebaseContext } from "../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 import bigLogo from "../Resources/svg/logo_big.svg";
-import {loginConGoogle, auth} from '../firebase';
+import {loginConGoogle} from '../Firebase';
 import black from "../Resources/svg/google_sign_in.svg";
-import {colorHexList} from "../colorList";
-import ColorPicker from '../Color';
-import {firestore} from '../firebase.js';
+import {colorHexList} from "../ColorHelper/colorList";
+import ColorPicker from '../ColorHelper/Color';
+import {firestore} from '../Firebase.js';
 
 
 function Main() {
 
-    const {user, setUser, authenticated, setAuthenticated, nickName,  changeUsername, setColorPick, colorPick } = useContext(AppFirebaseContext)
+    const {user, authenticated, nickName,  changeUsername, setColorPick, colorPick} = useContext(AppFirebaseContext)
     const [colors, setColors] = useState(colorHexList);
     let navigate = useNavigate();
 
    
-
-     let logout = () => {
-        setAuthenticated(false);
-        setUser(null);
-        auth.signOut();
-     }
-
      //Elección de color
 
      const setColor = (e, color) =>{
@@ -110,7 +103,7 @@ function Main() {
                 
                
                 <button className="gButton" onClick={HandleColorNickChangebyUser} >Continue</button>
-                <button className="log-out" onClick={logout}>Log Out</button>
+                
                 </>
                 ) : (
                     <>

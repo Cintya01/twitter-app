@@ -11,17 +11,18 @@ import heartwhite from "../src/Resources/svg/heart_white.svg"
 
 function Twitter() {
 
-    const {user, tweets, setTweet, sendTweet, deleteTweet,likeTweet, tweet} = useContext(AppFirebaseContext);
+    const {user, tweets, setTweet, sendTweet, deleteTweet,likeTweet, tweet, getUserPhoto} = useContext(AppFirebaseContext);
     let [letterCount, setLetterCount] = useState(0);
 
     let navigate = useNavigate();
 
-    function handleClick() {        
+    function handleClick() {     
+           
         navigate("/UserMainPage");        
     }
-    if(!user) {
+        if(!user) {
         navigate("/");
-    }
+    };
     
 
     const handleChange = (e) =>{
@@ -36,17 +37,7 @@ function Twitter() {
         }else{
             setLetterCount(0)
         }
-        console.log(letterCount)
-        
     };
-
-    const getUserPhoto = (user)=>{
-        if(user && user.photoURL){
-            return user.photoURL
-        }else{
-            return defaultPhoto
-        }
-    }
 
     let getBgPhotoStyle = (colorHex)  => {
         return {
@@ -57,14 +48,14 @@ function Twitter() {
       return (
         <div>
             <div className="header-cont flex">
-        <nav className="header-nav-cont flex">
-        {user.photoURL === "" ?
-                             <img className="profile-img-header" src={""} alt="profile pic" onClick={handleClick}  />
-                             :  <img className="profile-img-header" src={getUserPhoto(user)} style={getBgPhotoStyle(user.colorPick)} alt="profile pic" onClick={handleClick} /> }
-            <img className="logo-cont-header" src={logo} alt="Logo"/>
-            <img className="devs-header" src={name} alt="DEVSUNITED"/>
-        </nav>
-        </div>
+                <nav className="header-nav-cont flex">
+                    {user.photoURL === "" ?
+                        <img className="profile-img-header" src={""} alt="profile pic" onClick={handleClick}  /> :
+                        <img className="profile-img-header" src={getUserPhoto(user)} style={getBgPhotoStyle(user.colorPick)} alt="profile pic" onClick={handleClick} /> }
+                    <img className="logo-cont-header" src={logo} alt="Logo"/>
+                    <img className="devs-header" src={name} alt="DEVSUNITED"/>
+                </nav>
+            </div>
             <div className="form-cont flex">
             <img className="profile-img" src={getUserPhoto(user)} alt="Profile Pic" onClick={handleClick}/>
                 <form>
@@ -119,7 +110,7 @@ function Twitter() {
                         </div>
                          <div className="text-cont"> 
                          <div className="user-date flex">                       
-                            <p id="myID" className="username" onClick={handleClick} style={getBgStyle(tweet.colorPick)}>{tweet.autor}</p>       
+                            <p className="username" onClick={handleClick} style={getBgStyle(tweet.colorPick)}>{tweet.autor}</p>       
                             <span>  -{posted}.</span>
                             </div>
                         

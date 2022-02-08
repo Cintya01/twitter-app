@@ -1,5 +1,6 @@
 import React, {useState, useEffect, createContext} from 'react';
-import {firestore, auth} from '../firebase.js';
+import {firestore, auth} from '../Firebase.js';
+import defaultPhoto from "../Resources/svg/profilePicDefault.svg";
 // import {useNavigate} from "react-router-dom";
 
 export const AppFirebaseContext = createContext();
@@ -124,7 +125,21 @@ useEffect(() => {
                 firestore.doc (`Tweets-s4/${id}`).update({likes: likes + 1});
             }
       
-            
+             const getUserPhoto = (user)=>{
+                if(user && user.photoURL){
+                    return user.photoURL
+                }else{
+                    return defaultPhoto
+                }
+            }
+
+            const getUserNick = (user)=>{
+                if(user && user.nickName){
+                    return user.nickName
+                }else{
+                    return "Username"
+                }
+            }
 
 return (
     <AppFirebaseContext.Provider value= {
@@ -142,6 +157,8 @@ return (
         setTweets,
         setColorPick,
         colorPick,
+        getUserPhoto,
+        getUserNick
         }} >
         {children}
     </AppFirebaseContext.Provider>

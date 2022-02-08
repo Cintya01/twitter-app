@@ -1,4 +1,4 @@
-import '../src/Styles/Main-Home.css';
+import '../Styles/Login-Welcome.css';
 import PropTypes from 'prop-types';
 import React from 'react';
 

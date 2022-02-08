@@ -87,6 +87,7 @@ textarea {
   background: #2F112D;
   justify-content: center;
   text-align: center;
+  border: none;
  }
 
 .tweet-cont{
@@ -177,15 +178,6 @@ textarea {
   align-items: center;
 }
 
-/* progress{
-  appearance: none;
-  height: 3px;
-  width: auto;
-  border: none;
-  background: #00DA76;
-} */
-
-
 progress {
   border: none;
   height: 3px;
@@ -204,5 +196,32 @@ textarea::placeholder{
 
 .count-position{
   justify-content: space-between;
+}
+
+.logout-btn{
+  background: #F50D5A;
+  border: none;
+  Width: 116px;
+  Height: 35px;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+}
+
+.svg-usermainpage{
+ height: 28px;
+ width: 18px;
+}
+
+.usermainpage{
+  width: 134px;
+  height: 134px;
+  border-radius: 50%;
+}
+.user-nickname{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color:  #2E132C;
 }
 
