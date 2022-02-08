@@ -1,122 +1,90 @@
 import '../src/Styles/App.css';
-import {firestore} from './firebase';
+import { AppFirebaseContext } from "./Context/AppContext";
 import { useNavigate } from "react-router-dom";
-import React, {useEffect} from 'react';
+import React, {useContext, useState} from 'react';
 import borrar from "../src/Resources/svg/delete.svg";
 import defaultPhoto from "../src/Resources/svg/profilePicDefault.svg";
-import ProfilePic from "../src/Resources/svg/ornacia.png"
-import logo from "../src/Resources/svg/Logo_Alone.svg"
+import logo from "../src/Resources/svg/Logo_Alone.svg" 
 import name from "../src/Resources/svg/Name_Logo.svg"
-import heart from "../src/Resources/svg/heart.svg"
+import heartred from "../src/Resources/svg/heart_red.svg"
+import heartwhite from "../src/Resources/svg/heart_white.svg"
 
-//Tercera pantalla//
+function Twitter() {
 
-function Twitter(props) {
+    const {user, tweets, setTweet, sendTweet, deleteTweet,likeTweet, tweet, getUserPhoto} = useContext(AppFirebaseContext);
+    let [letterCount, setLetterCount] = useState(0);
+
     let navigate = useNavigate();
 
     function handleClick() {
-        navigate("/UserMainPage");
+         navigate("/UserMainPage")
+
+
+        //AGREGAR IF USUARIO LOGEADO ENVIAR A USER MAIN PAGE SI NO, ENVIAR A OTHER USER PAGE
+    //    if (tweetId === uid){
+    //     navigate("/UserMainPage")
+    //    } else if (tweetId !== uid){
+    //     navigate("/OtherUserPage")
+    //    } else if(!user){
+    //     navigate("/")
+       }
+         
+              
+        
+        
+    
+    
+
+    const handleChange = (e) =>{
+        let newTweet = {
+            ...tweet,
+            [e.target.name]: e.target.value
+        };
+        setTweet(newTweet);
+        letterCount = 0;
+        if(e.target.value){
+            setLetterCount(e.target.value.length)
+        }else{
+            setLetterCount(0)
+        }
+    };
+
+    let getBgPhotoStyle = (colorHex)  => {
+        return {
+            border: '2px solid' +colorHex
+        }
     }
-
-    useEffect (() => {
-
-        if(!props.user) {
-            navigate("/");
-        }
-        const unsuscribe = firestore
-        .collection("Tweets-s4")
-        .onSnapshot((snapshot) => {
-           const tweets = snapshot.docs.map((doc) => {
-                return {
-                    id:doc.id,
-                    autor: doc.data().autor,
-                    tweet: doc.data().tweet,
-                    dateCreated: doc.data().dateCreated,
-                    likes: doc.data().likes,
-                    userId: doc.data().userId,
-                    email: doc.data().email,
-                    photoURL: doc.data().photoURL,
-                    nickName: doc.data().nickName
-                };
-            });
-             props.setTweets(tweets);
-          });
-          return () => unsuscribe();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        },[]);
-
-
-        const handleChange = (e) =>{
-            let newTweet = {
-                ...props.tweet,
-                [e.target.name]: e.target.value
-            };
-            props.setTweet(newTweet);
-        };
-
-        const sendTweet = (e) => {
-             e.preventDefault();
-                props.tweet.photoURL = props.user.photoURL;
-                // props.tweet.autor  = props.user.name;
-                props.tweet.autor  = props.user.nickName ? props.user.nickName : props.user.name;
-                // SI HAY PROPS USER NICKNAME MUESTRE SI NO, NAME ? :
-                props.tweet.dateCreated = new Date();
-                props.tweet.userId = props.user.uid;
-                props.tweet.email = props.user.email;
-            
-        console.log(props.tweet)
-        firestore.collection("Tweets-s4").add(props.tweet)
-        props.setTweet({  autor: "",
-                tweet: "",
-                dateCreated: "",
-                likes: 0,
-                userId: "",
-                email: ""});
-
-        };
-
-        const deleteTweet = (id) => {
-            const newTweet = props.tweets.filter((tweet) => {
-                return tweet.id !== id;
-            });
-            props.setTweet(newTweet);
-            firestore.collection("Tweets-s4").doc(id).delete()
-        };
-
-        const likeTweet = (id, likes) => {
-            if (!likes) likes = 0;
-            firestore.doc (`Tweets-s4/${id}`).update({likes: likes + 1});
-        }
-    //     const handlePhoto = (defaultPhoto) => {
-    //         if(photo !== null) {
-    //         return photo;
-    //     } else {
-    //         return defaultPic;
-    //     }
-    // }
-
+    
       return (
         <div>
             <div className="header-cont flex">
-        <nav className="header-nav-cont flex">
-            <img className="profile-img-header" src={ProfilePic} alt="Profile Pic" onClick={handleClick}/>
-            <img className="logo-cont-header" src={logo} alt="Logo"/>
-            <img className="devs-header" src={name} alt="DEVSUNITED"/>
-        </nav>
-        </div>
+                <nav className="header-nav-cont flex space-around">
+                    {user.photoURL === "" ?
+                        <img className="profile-img-header" src={""} alt="profile pic" onClick={handleClick}  /> :
+                        <img className="profile-img-header" src={getUserPhoto(user)} style={getBgPhotoStyle(user.colorPick)} alt="profile pic" onClick={handleClick} /> }
+                    <img className="logo-cont-header" src={logo} alt="Logo"/>
+                    <img className="devs-header" src={name} alt="DEVSUNITED"/>
+                </nav>
+            </div>
             <div className="form-cont flex">
-            <img className="profile-img" src={ProfilePic} alt="Profile Pic" onClick={handleClick}/>
+            <img className="profile-img" src={getUserPhoto(user)} alt="Profile Pic" onClick={handleClick}/>
                 <form>
                     <textarea
                         name="tweet"
                         onChange={handleChange}
-                        value= {props.tweet.tweet}
+                        value= {tweet.tweet}
                         cols="30"
-                        rows= "5"
+                        rows= "4"
                         placeholder="What's Happening?..."
+                        maxLength="200"                        
                 />
-                <div>200 max</div>
-                <div>                
+
+                <progress  value={letterCount} min="0" max="200" className='flex'></progress>
+                <div className='flex count-position'>
+                <p>{letterCount.toString()}</p>
+                <div className='max flex'>200 max.</div>
+                </div>
+                <div className='flex max'>                
                     <button className="btn-post silk-font" onClick={sendTweet}> POST </button>
                     </div>
                 </form>
@@ -124,10 +92,24 @@ function Twitter(props) {
 
             <section className="tweet-cont flex">  
 
-            {props.tweets.map((tweet) => {
+            {tweets.map((tweet) => {
 
-                let date = tweet.dateCreated.toDate().toLocaleDateString();
 
+        //DA FORMATO A LA FECHA DE FIREBASE PARA MOSTRARLA EN FORMATO LOCAL
+        const format = (dates, locale, options) =>
+                new Intl.DateTimeFormat(locale,options).format(dates)
+        let date = tweet.dateCreated.toDate() 
+
+        let getBgStyle = (colorHex)  => {
+            return {
+                backgroundColor:colorHex,
+                boxShadow: '0 4px 0px -2px '+colorHex
+            }
+        }
+
+        const posted = format(date,'es', { day: 'numeric', month: 'short' });  
+                      
+                      
                return (   
                              
                     <div className="tweet-cont-ind flex" key={tweet.id}>
@@ -136,35 +118,39 @@ function Twitter(props) {
                              <img className="profile-img" src={defaultPhoto} alt="profile pic"/>
                              :  <img className="profile-img" src={tweet.photoURL} alt="profile pic"/> }
                         </div>
-                        <div className="text-cont">
-                        <div className="first-row">
-                            <p className="username" onClick={handleClick}>{tweet.autor}</p>
-                            <span>- {date} .</span>
+                         <div className="text-cont"> 
+                         <div className="user-date flex">                       
+                            <p className="username" onClick={handleClick} style={getBgStyle(tweet.colorPick)}>{tweet.autor}</p>       
+                            <span>  -{posted}.</span>
+                            </div>
                         
-                            {tweet.userId === props.user.uid ?
-                            <span onClick={() => deleteTweet(tweet.id)} className="delete">
-                                <img className="svg-delete" src={borrar} alt="delete"/>
+                            {tweet.userId === user.uid ?
+                            <span onClick={() => deleteTweet(tweet.id)} className='delete flex'>
+                                <img className="svg-delete flex" src={borrar} alt="delete"/>
                             </span> : null
                             }
-                        </div>
-
-                       
+                      
                         <div className='flex tweet-space'>
                             <p>{tweet.tweet}</p>
                         </div>
                     <div>
+            
+                        {tweet.userId !== user.uid ?
                         
-                        {tweet.userId !== props.user.uid ?
-                        
-                        <span onClick={() => likeTweet(tweet.id, tweet.likes)} className="likes" >
-                        <img height="13px" src={heart} alt="" />
-                        <span>{tweet.likes ? tweet.likes : 0}    </span>
+                        <span onClick={() => likeTweet(tweet.id, tweet.likes)} className="flex" >
+                        <img className='heart' src={heartred} alt="" />
+                        <span className='likes flex'>{tweet.likes ? tweet.likes : 0}    </span>
                         </span>
-                        : null}
+                        : 
+                        <span className='flex'>
+                        <img className='heart flex' src={heartwhite} alt="" />
+                        <span className='likes flex'>{tweet.likes}    </span>
+                        </span>
+                        }
                          <p className="email-text">{tweet.email}</p>
                     </div>
                     </div>
-                    </div>
+                </div>
               );
             })}
             </section>
@@ -175,3 +161,4 @@ function Twitter(props) {
 }
 
 export default Twitter;
+

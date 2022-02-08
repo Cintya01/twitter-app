@@ -81,6 +81,7 @@ h3 {
 .input-type{
     width: 425px;
     height: 67px;
+    margin-bottom: 15px;
     background-color: #150714;
     border: none;
     font-family: Fira Code;
@@ -93,7 +94,11 @@ h3 {
     letter-spacing: -0.333333px;
     color: #914D8B;
 }
-  
+
+.input-type::placeholder{
+    padding-left: 10px;
+    color: #914D8B;
+}
 
 .gButton {
     font-family: 'Silkscreen';
@@ -133,42 +138,29 @@ p span {
     
 }
 
+/*COLORS*/
+
 .color-cont{
     width: 425px;
     height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+    margin-top: 20px;
 }
 
-.color-square{
+ul{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap; 
+}
+
+.color-square{  
     width: 58px;
     height: 58px;
     border: none;
+    list-style: none;
 }
 
-.color-square:hover{
+.color-square-border{
     cursor: pointer;
     border: 3px solid #fff;
-    background-color: red;
 }
 
-.color-square:first-of-type{
-    background-color: #F50D5A;
-}
-.color-square:nth-child(2){
-    background-color: #FF865C;
-}
-.color-square:nth-child(3){
-    background-color: #FFEA5C;
-}
-.color-square:nth-child(4){
-    background-color: #00DA76;
-}
-.color-square:nth-child(5){
-    background-color: #0096CE;
-}
-.color-square:last-child{
-    background-color: #800FFF;
-    ;
-}

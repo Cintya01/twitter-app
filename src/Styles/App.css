@@ -30,7 +30,6 @@
 
 .header-nav-cont{
   box-sizing: border-box;
-  justify-content: space-around;
   align-items: center;
   width: 605px;
   height:52px;
@@ -51,7 +50,6 @@
 .profile-img-header{
   width:33px;
   height: 33px;
-  border: 2px solid yellow;
   border-radius: 50px;
 }
 .flex {
@@ -76,12 +74,19 @@ textarea {
   color: white;
 }
 
+.max{
+  justify-content: flex-end;
+  color: red;
+  font-family: 'Fira Code', monospace;
+  font-size: 450;
+}
 .btn-post{
   Width: 102px;
   Height: 35px;
   background: #2F112D;
   justify-content: center;
   text-align: center;
+  border: none;
  }
 
 .tweet-cont{
@@ -115,7 +120,7 @@ textarea {
 
  .text-cont{
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row wrap;
   width: 100%;
 }
 
@@ -130,32 +135,98 @@ textarea {
   color:  #2E132C;
 }
 
-.delete{
-  padding-left: 150px;
-  height: auto;
-}
 .svg-delete {
   width: 24px;
   height: 20px;
 }
+
+.delete{
+  align-items: center;
+  justify-content: flex-end;
+  width: 50px;
+}
   
-.first-row{
-  display: flex;
-  flex-flow: row wrap
+.user-date{
+  align-items: center;
+  width: 450px;
 } 
+
 
 .tweet-space{
  text-align: start;
  margin-top: 20px;
  width: 500px;
- height: 136px;
- font-size: 18px;
+ height: 100px;
+ font-size: 16px;
  font-weight: 450;
 }
 
 .email-text{
   color: #60265B;
+  align-content: center;
 }
 
+.heart{
+  height: 13px;
+}
 
+.likes{
+  height: 13px;
+  width: 30px;
+  justify-content: center;
+  align-items: center;
+}
 
+progress {
+  border: none;
+  height: 3px;
+  width: auto;
+  background: #00DA76;
+}
+
+progress::-webkit-progress-bar {
+  background: #150714;
+}
+
+textarea::placeholder{
+  padding-left: 10px;
+  color: #914D8B;
+}
+
+.count-position{
+  justify-content: space-between;
+}
+
+.logout-btn{
+  background: #F50D5A;
+  border: none;
+  Width: 116px;
+  Height: 35px;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+}
+
+.svg-usermainpage{
+ height: 28px;
+ width: 18px;
+}
+
+.usermainpage{
+  width: 134px;
+  height: 134px;
+  border-radius: 50%;
+}
+.color-nickname{
+   color:  #2E132C;
+}
+
+.center{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.space-around{
+  justify-content: space-around;
+}
