@@ -48,6 +48,12 @@ function Twitter() {
             return defaultPhoto
         }
     }
+
+    let getBgPhotoStyle = (colorHex)  => {
+        return {
+            border: '2px solid' +colorHex
+        }
+    }
     
       return (
         <div>
@@ -55,13 +61,13 @@ function Twitter() {
         <nav className="header-nav-cont flex">
         {user.photoURL === "" ?
                              <img className="profile-img-header" src={""} alt="profile pic" onClick={handleClick}  />
-                             :  <img className="profile-img-header" src={getUserPhoto(user)} alt="profile pic" onClick={handleClick} /> }
+                             :  <img className="profile-img-header" src={getUserPhoto(user)} style={getBgPhotoStyle(user.colorPick)} alt="profile pic" onClick={handleClick} /> }
             <img className="logo-cont-header" src={logo} alt="Logo"/>
             <img className="devs-header" src={name} alt="DEVSUNITED"/>
         </nav>
         </div>
             <div className="form-cont flex">
-            <img className="profile-img" src={ProfilePic} alt="Profile Pic" onClick={handleClick}/>
+            <img className="profile-img" src={getUserPhoto(user)} alt="Profile Pic" onClick={handleClick}/>
                 <form>
                     <textarea
                         name="tweet"
