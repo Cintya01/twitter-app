@@ -16,13 +16,23 @@ function Twitter() {
 
     let navigate = useNavigate();
 
-    function handleClick() {     
-           
-        navigate("/UserMainPage");        
-    }
-        if(!user) {
-        navigate("/");
-    };
+    function handleClick() {
+         navigate("/UserMainPage")
+
+
+        //AGREGAR IF USUARIO LOGEADO ENVIAR A USER MAIN PAGE SI NO, ENVIAR A OTHER USER PAGE
+    //    if (tweetId === uid){
+    //     navigate("/UserMainPage")
+    //    } else if (tweetId !== uid){
+    //     navigate("/OtherUserPage")
+    //    } else if(!user){
+    //     navigate("/")
+       }
+         
+              
+        
+        
+    
     
 
     const handleChange = (e) =>{
@@ -48,7 +58,7 @@ function Twitter() {
       return (
         <div>
             <div className="header-cont flex">
-                <nav className="header-nav-cont flex">
+                <nav className="header-nav-cont flex space-around">
                     {user.photoURL === "" ?
                         <img className="profile-img-header" src={""} alt="profile pic" onClick={handleClick}  /> :
                         <img className="profile-img-header" src={getUserPhoto(user)} style={getBgPhotoStyle(user.colorPick)} alt="profile pic" onClick={handleClick} /> }
@@ -151,3 +161,4 @@ function Twitter() {
 }
 
 export default Twitter;
+

@@ -6,14 +6,13 @@ import borrar from "../src/Resources/svg/delete.svg";
 import defaultPhoto from "../src/Resources/svg/profilePicDefault.svg";
 import heartred from "../src/Resources/svg/heart_red.svg";
 import heartwhite from "../src/Resources/svg/heart_white.svg";
-import LogoutPic from "../src/Resources/svg/logout.svg" 
 import back from "../src/Resources/svg/back.svg";
-import {auth} from './Firebase.js';
 
 
-function UserMainPage() {
+function OtherUserPage() {
 
-    const {user, setAuthenticated, setUser, tweets, deleteTweet,likeTweet, getUserPhoto, getUserNick} = useContext(AppFirebaseContext);
+    const {user, tweets, deleteTweet,likeTweet, getUserPhoto, getUserNick} = useContext(AppFirebaseContext);
+
 
     let navigate = useNavigate();
 
@@ -24,13 +23,7 @@ function UserMainPage() {
         navigate("/");
     }
     
-    let logout = () => {
-        setAuthenticated(false);
-        setUser(null);
-        auth.signOut();
-        navigate("/");
-     }
-
+   
     let getBgStyle = (colorHex)  => {
         return {
             backgroundColor:colorHex,
@@ -46,28 +39,21 @@ function UserMainPage() {
     
 
       return (
+          
         <div>
+            <p>PRUEBA OTHER USER PAGE</p>
             <div className="header-cont flex">
-        <nav className="header-nav-cont space-around flex">
-            <div className='flex center'>
-        <img className="svg-usermainpage" src={back} onClick={handleClick} alt="Back" />
-        <p className="silk-font" > {getUserNick(user)}  </p> 
-        </div>
-            
-            <button className="logout-btn flex silk-font" onClick={logout}>Logout
-            <img className="svg-usermainpage flex" src={LogoutPic} alt="LogOut" />
-            </button>
-        </nav>
+            <nav className="header-nav-cont flex"> 
+                <img className="svg-usermainpage" src={back} onClick={handleClick} alt="Back" />
+                <p className="silk-font" > {getUserNick(user)}  </p>          
+            </nav>
         </div>
             <div className="form-cont">
             <img className="usermainpage" src={getUserPhoto(user)} style={getBgPhotoStyle(user.colorPick)} alt="Profile Pic" onClick={handleClick}/>
             <div className='color-nickname center flex silk-font'>
             <p style={getBgStyle(user.colorPick)}> {getUserNick(user)}  </p> 
             </div>
-            <div>
-            <button className="btn-post silk-font" >POST</button>
-            <button className="btn-post silk-font" >FAVORITES</button>
-            </div>
+            
             </div>
 
             <section className="tweet-cont flex">  
@@ -134,4 +120,4 @@ function UserMainPage() {
       );
 }
 
-export default UserMainPage;
+export default OtherUserPage;

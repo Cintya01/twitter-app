@@ -63,9 +63,7 @@ useEffect(() => {
         }
 
   //   OBTENER DATOS DE FIREBASE Y USER DATA
-        useEffect (() => {
-
-            
+        useEffect (() => {  
             const unsuscribe = firestore
             .collection("Tweets-s4")
             .onSnapshot((snapshot) => {
@@ -158,7 +156,7 @@ return (
         setColorPick,
         colorPick,
         getUserPhoto,
-        getUserNick
+        getUserNick,
         }} >
         {children}
     </AppFirebaseContext.Provider>

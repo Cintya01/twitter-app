@@ -30,7 +30,6 @@
 
 .header-nav-cont{
   box-sizing: border-box;
-  justify-content: space-around;
   align-items: center;
   width: 605px;
   height:52px;
@@ -218,10 +217,16 @@ textarea::placeholder{
   height: 134px;
   border-radius: 50%;
 }
-.user-nickname{
+.color-nickname{
+   color:  #2E132C;
+}
+
+.center{
   justify-content: center;
   align-items: center;
   text-align: center;
-  color:  #2E132C;
 }
 
+.space-around{
+  justify-content: space-around;
+}
