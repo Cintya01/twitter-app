@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import React, {useContext, useState} from 'react';
 import borrar from "../src/Resources/svg/delete.svg";
 import defaultPhoto from "../src/Resources/svg/profilePicDefault.svg";
-import ProfilePic from "../src/Resources/svg/ornacia.png"
 import logo from "../src/Resources/svg/Logo_Alone.svg" 
 import name from "../src/Resources/svg/Name_Logo.svg"
 import heartred from "../src/Resources/svg/heart_red.svg"
