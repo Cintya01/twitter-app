@@ -30,7 +30,6 @@ function Main() {
 
      const setColor = (e, color) =>{
          const cId = e.target.id;
-         console.log(e.target.id);
 
         let newColorList = colors.map((color) => {
             if (cId === color.hex) {

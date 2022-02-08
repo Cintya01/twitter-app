@@ -64,9 +64,7 @@ useEffect(() => {
   //   OBTENER DATOS DE FIREBASE Y USER DATA
         useEffect (() => {
 
-            // if(!user) {
-            //     navigate("/");
-            // }
+            
             const unsuscribe = firestore
             .collection("Tweets-s4")
             .onSnapshot((snapshot) => {

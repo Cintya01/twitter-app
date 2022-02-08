@@ -18,9 +18,10 @@ function Twitter() {
     let navigate = useNavigate();
 
     function handleClick() {        
-        var element = document.getElementById("myID");
-        element.style.backgroundColor=user.colorPick.value;
         navigate("/UserMainPage");        
+    }
+    if(!user) {
+        navigate("/");
     }
     
 
@@ -33,10 +34,20 @@ function Twitter() {
         letterCount = 0;
         if(e.target.value){
             setLetterCount(e.target.value.length)
+        }else{
+            setLetterCount(0)
         }
         console.log(letterCount)
         
     };
+
+    const getUserPhoto = (user)=>{
+        if(user && user.photoURL){
+            return user.photoURL
+        }else{
+            return defaultPhoto
+        }
+    }
     
       return (
         <div>
@@ -44,7 +55,7 @@ function Twitter() {
         <nav className="header-nav-cont flex">
         {user.photoURL === "" ?
                              <img className="profile-img-header" src={""} alt="profile pic" onClick={handleClick}  />
-                             :  <img className="profile-img-header" src={user.photoURL} alt="profile pic" onClick={handleClick} /> }
+                             :  <img className="profile-img-header" src={getUserPhoto(user)} alt="profile pic" onClick={handleClick} /> }
             <img className="logo-cont-header" src={logo} alt="Logo"/>
             <img className="devs-header" src={name} alt="DEVSUNITED"/>
         </nav>
@@ -53,15 +64,13 @@ function Twitter() {
             <img className="profile-img" src={ProfilePic} alt="Profile Pic" onClick={handleClick}/>
                 <form>
                     <textarea
-                        
                         name="tweet"
                         onChange={handleChange}
                         value= {tweet.tweet}
                         cols="30"
                         rows= "4"
                         placeholder="What's Happening?..."
-                        maxLength="200"
-                        
+                        maxLength="200"                        
                 />
 
                 <progress  value={letterCount} min="0" max="200" className='flex'></progress>
@@ -85,7 +94,15 @@ function Twitter() {
                 new Intl.DateTimeFormat(locale,options).format(dates)
         let date = tweet.dateCreated.toDate() 
 
-        const posted = format(date,'es', { day: 'numeric', month: 'short' });                     
+        let getBgStyle = (colorHex)  => {
+            return {
+                backgroundColor:colorHex,
+                boxShadow: '0 4px 0px -2px '+colorHex
+            }
+        }
+
+        const posted = format(date,'es', { day: 'numeric', month: 'short' });  
+                      
                       
                return (   
                              
@@ -97,7 +114,7 @@ function Twitter() {
                         </div>
                          <div className="text-cont"> 
                          <div className="user-date flex">                       
-                            <p id="myID" className="username" onClick={handleClick}>{tweet.autor}</p>       
+                            <p id="myID" className="username" onClick={handleClick} style={getBgStyle(tweet.colorPick)}>{tweet.autor}</p>       
                             <span>  -{posted}.</span>
                             </div>
                         
@@ -106,10 +123,7 @@ function Twitter() {
                                 <img className="svg-delete flex" src={borrar} alt="delete"/>
                             </span> : null
                             }
-                            
-                        
-
-                       
+                      
                         <div className='flex tweet-space'>
                             <p>{tweet.tweet}</p>
                         </div>
