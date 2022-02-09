@@ -230,3 +230,17 @@ textarea::placeholder{
 .space-around{
   justify-content: space-around;
 }
+
+.btn-post-user{
+  width:302px;
+  height: 46px;
+  border: none;
+  color: #60265B;
+  background: none;
+}
+
+.selected{
+  background: #60265B;
+  color: #150714;
+
+}

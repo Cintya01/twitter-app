@@ -13,27 +13,25 @@ function Twitter() {
 
     const {user, tweets, setTweet, sendTweet, deleteTweet,likeTweet, tweet, getUserPhoto} = useContext(AppFirebaseContext);
     let [letterCount, setLetterCount] = useState(0);
+    let [ selectedUser, setSelectedUser] =useState("");
 
     let navigate = useNavigate();
 
-    function handleClick() {
+    function handleClickMainProfile() {
          navigate("/UserMainPage")
-
-
-        //AGREGAR IF USUARIO LOGEADO ENVIAR A USER MAIN PAGE SI NO, ENVIAR A OTHER USER PAGE
-    //    if (tweetId === uid){
-    //     navigate("/UserMainPage")
-    //    } else if (tweetId !== uid){
-    //     navigate("/OtherUserPage")
-    //    } else if(!user){
-    //     navigate("/")
        }
-         
-              
-        
-        
-    
-    
+
+       function handleClickOtherProfile(userID) {
+           setSelectedUser(userID);       
+      if (userID === user.uid){
+       navigate("/UserMainPage")
+      } else if (userID !== user.uid){
+       navigate("/OtherUserPage")
+      } else if(!user){
+       navigate("/")
+      }
+    };
+             
 
     const handleChange = (e) =>{
         let newTweet = {
@@ -60,14 +58,14 @@ function Twitter() {
             <div className="header-cont flex">
                 <nav className="header-nav-cont flex space-around">
                     {user.photoURL === "" ?
-                        <img className="profile-img-header" src={""} alt="profile pic" onClick={handleClick}  /> :
-                        <img className="profile-img-header" src={getUserPhoto(user)} style={getBgPhotoStyle(user.colorPick)} alt="profile pic" onClick={handleClick} /> }
+                        <img className="profile-img-header" src={""} alt="profile pic" onClick={handleClickMainProfile}  /> :
+                        <img className="profile-img-header" src={getUserPhoto(user)} style={getBgPhotoStyle(user.colorPick)} alt="profile pic" onClick={handleClickMainProfile} /> }
                     <img className="logo-cont-header" src={logo} alt="Logo"/>
                     <img className="devs-header" src={name} alt="DEVSUNITED"/>
                 </nav>
             </div>
             <div className="form-cont flex">
-            <img className="profile-img" src={getUserPhoto(user)} alt="Profile Pic" onClick={handleClick}/>
+            <img className="profile-img" src={getUserPhoto(user)} alt="Profile Pic" onClick={handleClickMainProfile}/>
                 <form>
                     <textarea
                         name="tweet"
@@ -120,7 +118,7 @@ function Twitter() {
                         </div>
                          <div className="text-cont"> 
                          <div className="user-date flex">                       
-                            <p className="username" onClick={handleClick} style={getBgStyle(tweet.colorPick)}>{tweet.autor}</p>       
+                            <p className="username" onClick={handleClickOtherProfile} style={getBgStyle(tweet.colorPick)}>{tweet.autor}</p>       
                             <span>  -{posted}.</span>
                             </div>
                         

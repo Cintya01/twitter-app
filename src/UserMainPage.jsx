@@ -17,6 +17,16 @@ function UserMainPage() {
 
     let navigate = useNavigate();
 
+    let isPost = true;
+
+    const handlePostSelection = ()  => {
+        isPost = true;
+    }
+
+    const handleFavsSelection = ()  => {
+        isPost = true;
+    }
+
     function handleClick() {        
         navigate("/Twitter");        
     }
@@ -43,10 +53,9 @@ function UserMainPage() {
             border: '4px solid' +colorHex
         }
     }
-    
 
       return (
-        <div>
+        <section>
             <div className="header-cont flex">
         <nav className="header-nav-cont space-around flex">
             <div className='flex center'>
@@ -64,12 +73,16 @@ function UserMainPage() {
             <div className='color-nickname center flex silk-font'>
             <p style={getBgStyle(user.colorPick)}> {getUserNick(user)}  </p> 
             </div>
-            <div>
-            <button className="btn-post silk-font" >POST</button>
-            <button className="btn-post silk-font" >FAVORITES</button>
-            </div>
-            </div>
 
+          
+               </div>
+        <section>
+        <div className='flex'>
+                    
+                    <button onClick={handlePostSelection} className={`btn-post-user silk-font ${isPost ? "selected": "" }`}> POST</button>
+                    <button onClick={handleFavsSelection} className={`btn-post-user silk-font ${!isPost ? "selected":"" }`} >FAVORITES</button>
+                    </div>
+        </section>
             <section className="tweet-cont flex">  
 
             {tweets.map((tweet) => {
@@ -130,7 +143,7 @@ function UserMainPage() {
             </section>
             
            
-        </div>
+        </section>
       );
 }
 
