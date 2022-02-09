@@ -1,7 +1,8 @@
 import React, {useState, useEffect, createContext} from 'react';
 import {firestore, auth} from '../Firebase.js';
 import defaultPhoto from "../Resources/svg/profilePicDefault.svg";
-// import {useNavigate} from "react-router-dom";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 export const AppFirebaseContext = createContext();
 
@@ -115,6 +116,23 @@ useEffect(() => {
                 setTweet(newTweet);
                 firestore.collection("Tweets-s4").doc(id).delete()
             };
+
+            const showDeletePopUp = (id) => {
+                confirmAlert({
+                  title: 'Está seguro de borrar el tweet?',
+                  buttons: [
+                    {
+                      label: 'Yes',
+                      onClick: () => deleteTweet(id)
+                    },
+                    {
+                      label: 'No',
+                      onClick: () => {}
+                    }
+                  ]
+                });
+              };
+
     
             const likeTweet = (id, likes) => {
                 if (!likes) likes = 0;
@@ -146,7 +164,7 @@ return (
         setAuthenticated, 
         changeUsername,
         sendTweet, 
-        deleteTweet, 
+        showDeletePopUp,
         likeTweet, 
         tweet, 
         setTweet, 

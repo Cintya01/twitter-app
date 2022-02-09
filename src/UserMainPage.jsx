@@ -13,19 +13,9 @@ import {auth} from './Firebase.js';
 
 function UserMainPage() {
 
-    const {user, setAuthenticated, setUser, tweets, deleteTweet,likeTweet, getUserPhoto, getUserNick} = useContext(AppFirebaseContext);
+    const {user, setAuthenticated, setUser, tweets, showDeletePopUp,likeTweet, getUserPhoto, getUserNick} = useContext(AppFirebaseContext);
 
     let navigate = useNavigate();
-
-    // let [isPost, setIsPost] = useState(true);
-
-    // const handlePostSelection = ()  => {
-    //     isPost = false;
-    // }
-
-    // // const handleFavsSelection = ()  => {
-    // //     isPost = false;
-    // // }
 
     function handleClick() {        
         navigate("/Twitter");        
@@ -117,7 +107,7 @@ function UserMainPage() {
                             </div>
                         
                             {tweet.userId === user.uid ?
-                            <span onClick={() => deleteTweet(tweet.id)} className='delete flex'>
+                            <span onClick={() => showDeletePopUp(tweet.id)} className='delete flex'>
                                 <img className="svg-delete flex" src={borrar} alt="delete"/>
                             </span> : null
                             }

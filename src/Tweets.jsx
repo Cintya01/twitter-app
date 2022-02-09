@@ -11,7 +11,7 @@ import heartwhite from "../src/Resources/svg/heart_white.svg"
 
 function Twitter() {
 
-    const {user, tweets, setTweet, sendTweet, deleteTweet,likeTweet, tweet, getUserPhoto, checkedLike} = useContext(AppFirebaseContext);
+    const {user, tweets, setTweet, sendTweet, showDeletePopUp,likeTweet, tweet, getUserPhoto, checkedLike} = useContext(AppFirebaseContext);
     let [letterCount, setLetterCount] = useState(0);
 
     let navigate = useNavigate();
@@ -123,7 +123,7 @@ function Twitter() {
                             </div>
                         
                             {tweet.userId === user.uid ?
-                            <span onClick={() => deleteTweet(tweet.id)} className='delete flex'>
+                            <span onClick={() => showDeletePopUp(tweet.id)} className='delete flex'>
                                 <img className="svg-delete flex" src={borrar} alt="delete"/>
                             </span> : null
                             }
