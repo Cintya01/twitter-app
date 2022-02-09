@@ -85,9 +85,7 @@ useEffect(() => {
               });
               return () => unsuscribe();
             // eslint-disable-next-line react-hooks/exhaustive-deps
-            },[]);
-    
-    
+            },[]);  
         
     
             const sendTweet = (e) => {
@@ -122,6 +120,7 @@ useEffect(() => {
                 if (!likes) likes = 0;
                 firestore.doc (`Tweets-s4/${id}`).update({likes: likes + 1});
             }
+
       
              const getUserPhoto = (user)=>{
                 if(user && user.photoURL){
@@ -156,7 +155,7 @@ return (
         setColorPick,
         colorPick,
         getUserPhoto,
-        getUserNick,
+        getUserNick,     
         }} >
         {children}
     </AppFirebaseContext.Provider>

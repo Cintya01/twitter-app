@@ -60,7 +60,7 @@ function OtherUserPage() {
 
             {tweets.map((tweet) => {
 
-
+if(tweet.userId !== user.uid) {
         //DA FORMATO A LA FECHA DE FIREBASE PARA MOSTRARLA EN FORMATO LOCAL
         const format = (dates, locale, options) =>
                 new Intl.DateTimeFormat(locale,options).format(dates)
@@ -111,7 +111,7 @@ function OtherUserPage() {
                     </div>
                     </div>
                 </div>
-              );
+              )};
             })}
             </section>
             

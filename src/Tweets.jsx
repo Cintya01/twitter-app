@@ -11,9 +11,8 @@ import heartwhite from "../src/Resources/svg/heart_white.svg"
 
 function Twitter() {
 
-    const {user, tweets, setTweet, sendTweet, deleteTweet,likeTweet, tweet, getUserPhoto} = useContext(AppFirebaseContext);
+    const {user, tweets, setTweet, sendTweet, deleteTweet,likeTweet, tweet, getUserPhoto, checkedLike} = useContext(AppFirebaseContext);
     let [letterCount, setLetterCount] = useState(0);
-    let [ selectedUser, setSelectedUser] =useState("");
 
     let navigate = useNavigate();
 
@@ -21,11 +20,10 @@ function Twitter() {
          navigate("/UserMainPage")
        }
 
-       function handleClickOtherProfile(userID) {
-           setSelectedUser(userID);       
-      if (userID === user.uid){
+       function handleClickOtherProfile() {    
+      if (tweet.userId === user.uid){
        navigate("/UserMainPage")
-      } else if (userID !== user.uid){
+      } else if (tweet.userId !== user.uid){
        navigate("/OtherUserPage")
       } else if(!user){
        navigate("/")
@@ -137,7 +135,7 @@ function Twitter() {
             
                         {tweet.userId !== user.uid ?
                         
-                        <span onClick={() => likeTweet(tweet.id, tweet.likes)} className="flex" >
+                        <span onClick={() => likeTweet(tweet.id, tweet.likes)} onChange={checkedLike} className="flex" >
                         <img className='heart' src={heartred} alt="" />
                         <span className='likes flex'>{tweet.likes ? tweet.likes : 0}    </span>
                         </span>
