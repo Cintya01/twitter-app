@@ -11,7 +11,7 @@ import back from "../src/Resources/svg/back.svg";
 import {auth} from './Firebase.js';
 
 
-function UserMainPage() {
+function UserMainPageFav() {
 
     const {user, setAuthenticated, setUser, tweets, deleteTweet,likeTweet, getUserPhoto, getUserNick} = useContext(AppFirebaseContext);
 
@@ -30,14 +30,14 @@ function UserMainPage() {
     function handleClick() {        
         navigate("/Twitter");        
     }
-
-    function handleFav() {
-        navigate("/UserMainPageFav")
-    }
-
     if(!user) {
         navigate("/");
     }
+
+    function handlePost() {
+        navigate("/UserMainPage")
+    }
+
     
     let logout = () => {
         setAuthenticated(false);
@@ -81,10 +81,10 @@ function UserMainPage() {
 
           
                </div>
-               <section>
+             <section>
                     <div className='flex center color'>       
-                        <button type="button"  className= "btn-post-user silk-font selected"> POST</button>
-                        <button type="button" onClick={handleFav} className= "btn-post-user silk-font" >FAVORITES</button> 
+                        <button type="button"  onClick={handlePost} className="btn-post-user silk-font"> POST</button>
+                        <button type="button" className= "btn-post-user silk-font selected" >FAVORITES</button> 
                     </div>
              </section>
            
@@ -152,4 +152,4 @@ function UserMainPage() {
       );
 }
 
-export default UserMainPage;
+export default UserMainPageFav;

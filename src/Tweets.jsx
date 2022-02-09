@@ -96,7 +96,8 @@ function Twitter() {
         //DA FORMATO A LA FECHA DE FIREBASE PARA MOSTRARLA EN FORMATO LOCAL
         const format = (dates, locale, options) =>
                 new Intl.DateTimeFormat(locale,options).format(dates)
-        let date = tweet.dateCreated.toDate() 
+        let date = tweet.dateCreated.toDate()
+        
 
         let getBgStyle = (colorHex)  => {
             return {
@@ -106,6 +107,7 @@ function Twitter() {
         }
 
         const posted = format(date,'es', { day: 'numeric', month: 'short' });  
+       
                       
                       
                return (   
