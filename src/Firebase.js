@@ -20,7 +20,7 @@ export const auth = firebase.auth();
 //el proveedor de auth
 export const provider = new firebase.auth.GoogleAuthProvider();
 //la utilidad para hacer login con el pop-up
-export const loginConGoogle= () => auth.signInWithPopup(provider);
+export const loginConGoogle= () =>  auth.signInWithPopup(provider);
 //la utilidad para hacer logout
 export const logout = () => auth.signOut();
 // exporta el paquete de firebase para poder usarlo

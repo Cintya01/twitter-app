@@ -8,10 +8,11 @@ export const AppFirebaseContext = createContext();
 
 export default function FirebaseProvider({ children }) {
 
-
+    const [loading, setLoading] =useState(false)
     const [user, setUser] = useState(null);
     const [authenticated, setAuthenticated] = useState(false); 
     const [nickName, setNickName] = useState("");
+    const [selectedOtherUser,setSelectedOtherUser] = useState({})
     const [colorPick, setColorPick] = useState(undefined);
     const [tweets, setTweets] = useState ([]); 
     const [tweet, setTweet] = useState({  
@@ -156,6 +157,23 @@ useEffect(() => {
                 }
             }
 
+            const getUserByID  = (userId)=>{
+                firestore.collection("Users-s4").doc(userId).get().then((docRef) => {
+                    //si user existe, obtener datos
+                    if(docRef.exists){
+                         let data = docRef.data();
+                         setSelectedOtherUser(data);
+                         return data;
+                    }else{
+                    //Si user no existe lo setea como null
+                        setSelectedOtherUser(null)
+                        return null;
+                    };        
+                });
+            }
+
+
+
 return (
     <AppFirebaseContext.Provider value= {
         {user, 
@@ -173,7 +191,12 @@ return (
         setColorPick,
         colorPick,
         getUserPhoto,
-        getUserNick,     
+        getUserNick,    
+        loading,
+        setLoading,
+        selectedOtherUser,
+        setSelectedOtherUser,
+        getUserByID
         }} >
         {children}
     </AppFirebaseContext.Provider>

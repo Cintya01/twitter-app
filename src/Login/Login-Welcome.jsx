@@ -10,12 +10,14 @@ import black from "../Resources/svg/google_sign_in.svg";
 import {colorHexList} from "../ColorHelper/colorList";
 import ColorPicker from '../ColorHelper/Color';
 import {firestore} from '../Firebase.js';
+import LoadingOverlay from 'react-loading-overlay';
 
 
 function Main() {
 
-    const {user, authenticated, nickName,  changeUsername, setColorPick, colorPick} = useContext(AppFirebaseContext)
+    const {user, authenticated, nickName,  changeUsername, setColorPick, colorPick, loading, setLoading} = useContext(AppFirebaseContext)
     const [colors, setColors] = useState(colorHexList);
+  
     let navigate = useNavigate();
 
    
@@ -60,9 +62,23 @@ function Main() {
         navigate("/twitter")
         
    }  
+
+   const hideLoading = () =>{
+       setLoading(false);
+   }
+
+   const handleLoginGoogle = () => {
+    setLoading(true);
+    loginConGoogle();
+   }
      
     return (  
-        
+        <LoadingOverlay
+  active={loading}
+  spinner
+  text='Cargando'
+  >
+
         <div className="container">     
             <div className="cont-login"> 
                 <img className="img-style" src={bigLogo} alt="DEVSUnited Logo"/>
@@ -72,8 +88,9 @@ function Main() {
                  <div className="div-login"> 
                
              {user && authenticated ? (
+                
                  <>
-                 
+                 {hideLoading()}
                 <p className="text-title white">WELCOME <span> {user.name}! </span></p>
                          
                 <input 
@@ -110,7 +127,7 @@ function Main() {
                     <h1 className="text-title white">Lorem Ipsum Dolor </h1>
                     <h3 className="white"> Lorem ipsum dolor sir amet, consectetur adipiscing elit </h3>
                 
-                   <button  className="gButton" onClick={loginConGoogle}>
+                   <button  className="gButton" onClick={handleLoginGoogle}>
                          <img  className="log-in" src={black} alt="Login with Google"/>
                    </button>
                    </>
@@ -127,7 +144,7 @@ function Main() {
             
         </div>
 
-       
+        </LoadingOverlay>
     )
 }
 

@@ -11,7 +11,7 @@ import back from "../src/Resources/svg/back.svg";
 
 function OtherUserPage() {
 
-    const {user, tweets, deleteTweet,likeTweet, getUserPhoto, getUserNick} = useContext(AppFirebaseContext);
+    const {user, tweets, deleteTweet,likeTweet, getUserPhoto, getUserNick,selectedOtherUser} = useContext(AppFirebaseContext);
 
 
     let navigate = useNavigate();
@@ -41,17 +41,16 @@ function OtherUserPage() {
       return (
           
         <div>
-            <p>PRUEBA OTHER USER PAGE</p>
             <div className="header-cont flex">
             <nav className="header-nav-cont flex"> 
                 <img className="svg-usermainpage" src={back} onClick={handleClick} alt="Back" />
-                <p className="silk-font" > {getUserNick(user)}  </p>          
+                <p className="silk-font" > {getUserNick(selectedOtherUser)}  </p>          
             </nav>
         </div>
             <div className="form-cont">
-            <img className="usermainpage" src={getUserPhoto(user)} style={getBgPhotoStyle(user.colorPick)} alt="Profile Pic" onClick={handleClick}/>
+            <img className="usermainpage" src={getUserPhoto(selectedOtherUser)} style={getBgPhotoStyle(selectedOtherUser.colorPick)} alt="Profile Pic" onClick={handleClick}/>
             <div className='color-nickname center flex silk-font'>
-            <p style={getBgStyle(user.colorPick)}> {getUserNick(user)}  </p> 
+            <p style={getBgStyle(selectedOtherUser.colorPick)}> {getUserNick(selectedOtherUser)}  </p> 
             </div>
             
             </div>
@@ -60,7 +59,7 @@ function OtherUserPage() {
 
             {tweets.map((tweet) => {
 
-if(tweet.userId !== user.uid) {
+if(tweet.userId === selectedOtherUser.uid) {
         //DA FORMATO A LA FECHA DE FIREBASE PARA MOSTRARLA EN FORMATO LOCAL
         const format = (dates, locale, options) =>
                 new Intl.DateTimeFormat(locale,options).format(dates)

@@ -11,7 +11,7 @@ import heartwhite from "../src/Resources/svg/heart_white.svg"
 
 function Twitter() {
 
-    const {user, tweets, setTweet, sendTweet, showDeletePopUp,likeTweet, tweet, getUserPhoto, checkedLike} = useContext(AppFirebaseContext);
+    const {user, tweets, setTweet, sendTweet, showDeletePopUp,likeTweet, tweet, getUserPhoto, checkedLike,getUserByID,selectedOtherUser} = useContext(AppFirebaseContext);
     let [letterCount, setLetterCount] = useState(0);
 
     let navigate = useNavigate();
@@ -20,11 +20,17 @@ function Twitter() {
          navigate("/UserMainPage")
        }
 
-       function handleClickOtherProfile() {    
+    function handleClickOtherProfile(tweet) {    
       if (tweet.userId === user.uid){
        navigate("/UserMainPage")
       } else if (tweet.userId !== user.uid){
-       navigate("/OtherUserPage")
+       getUserByID(tweet.userId)
+       if(!!selectedOtherUser){
+        navigate("/OtherUserPage")
+       }else{
+           console.log("error")
+       }
+       
       } else if(!user){
        navigate("/")
       }
@@ -118,7 +124,7 @@ function Twitter() {
                         </div>
                          <div className="text-cont"> 
                          <div className="user-date flex">                       
-                            <p className="username" onClick={handleClickOtherProfile} style={getBgStyle(tweet.colorPick)}>{tweet.autor}</p>       
+                            <p className="username" onClick={() => handleClickOtherProfile(tweet)} style={getBgStyle(tweet.colorPick)}>{tweet.autor}</p>       
                             <span>  -{posted}.</span>
                             </div>
                         
