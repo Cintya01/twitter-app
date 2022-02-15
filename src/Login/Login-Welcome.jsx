@@ -10,23 +10,23 @@ import black from "../Resources/svg/google_sign_in.svg";
 import {colorHexList} from "../ColorHelper/colorList";
 import ColorPicker from '../ColorHelper/Color';
 import {firestore} from '../Firebase.js';
+import LoadingOverlay from 'react-loading-overlay';
 
 
-function Main() {
+function LoginWelcome() {
 
-    const {user, authenticated, nickName,  changeUsername, setColorPick, colorPick} = useContext(AppFirebaseContext)
+    const {user, authenticated, nickName,  changeUsername, setColorPick, colorPick, loading, setLoading} = useContext(AppFirebaseContext)
     const [colors, setColors] = useState(colorHexList);
     let navigate = useNavigate();
 
    
-     //Elección de color
+//Elección de color
 
-     const setColor = (e, color) =>{
-         const cId = e.target.id;
+    const setColor = (e, color) =>{
+        const cId = e.target.id;
 
         let newColorList = colors.map((color) => {
-            if (cId === color.hex) {
-               
+            if (cId === color.hex) {   
                 return {                   
                     n: color.n,
                     hex: color.hex,
@@ -39,15 +39,14 @@ function Main() {
                     choose: false 
                 }
             }
-        })
-        setColors(newColorList);
-        setColorPick( color );
-     };
+        });
+            setColors(newColorList);
+            setColorPick( color );
+    };
 
-     //Setea color de Usuario y envía a Firebase para refrescar toda la data
+//Setea color de Usuario y envía a Firebase para refrescar toda la data
 
-     const HandleColorNickChangebyUser = () => {  
-        
+    const HandleColorNickChangebyUser = () => {  
         firestore.collection("Users-s4").doc(user.uid).set({
             photoURL: user.photoURL,
             name: user.name,                       
@@ -55,80 +54,76 @@ function Main() {
             email : user.email,
             nickName: user.nickName,
             colorPick: colorPick.hex
-        });
-       
-        navigate("/twitter")
-        
-   }  
+        });   
+        navigate("/Twitter");
+    };
+
+   const hideLoading = () =>{
+        setLoading(false);
+    };
+
+   const handleLoginGoogle = () => {
+        setLoading(true);
+        loginConGoogle();
+    };
      
     return (  
-        
-        <div className="container">     
-            <div className="cont-login"> 
-                <img className="img-style" src={bigLogo} alt="DEVSUnited Logo"/>
-            </div>
-            <div className="cont-login"> 
-                <div>                 
-                 <div className="div-login"> 
-               
-             {user && authenticated ? (
-                 <>
-                 
-                <p className="text-title white">WELCOME <span> {user.name}! </span></p>
-                         
-                <input 
-                    className="input-type" 
-                    type="text" 
-                    id="nickNameElement" 
-                    placeholder='Type your username' 
-                    onChange={changeUsername}
-                    value={nickName}
-                    />
-                
-                <p id="valueInput"></p>
-               
 
-                <p>Select your favorite color</p>
-                <div className="color-cont">
-                <ul>
-                   {colors.map((color) =>
-                        <ColorPicker
-                            color ={color}
-                            handleColor= {setColor}
-                            key={color.hex}
-                            n={color.n}/>
-                   )}
-              </ul>
+        <LoadingOverlay active={loading} spinner text='Cargando...' >
+
+            <section className="container">     
+                <div className="cont-login"> 
+                    <img className="img-style" src={bigLogo} alt="DEVSUnited Logo"/>
                 </div>
-                
-               
-                <button className="gButton" onClick={HandleColorNickChangebyUser} >Continue</button>
-                
-                </>
-                ) : (
-                    <>
-                    <h1 className="text-title white">Lorem Ipsum Dolor </h1>
-                    <h3 className="white"> Lorem ipsum dolor sir amet, consectetur adipiscing elit </h3>
-                
-                   <button  className="gButton" onClick={loginConGoogle}>
-                         <img  className="log-in" src={black} alt="Login with Google"/>
-                   </button>
-                   </>
-                )}
-                </div>
+                <div className="cont-login"> 
+                    <div>                 
+                        <div className="div-login"> 
+                            {user && authenticated ? (
+                                <>
+                                {hideLoading()}
+                                <p className="text-title white">WELCOME <span> {user.name}! </span></p>      
+                                <input 
+                                    className="input-type" 
+                                    type="text" 
+                                    id="nickNameElement" 
+                                    placeholder='Type your username' 
+                                    onChange={changeUsername}
+                                    value={nickName}
+                                    />
+                                <p id="valueInput"></p>
+                                <p>Please select your favorite color!</p>
+                                <div className="color-cont">
+                                    <ul>
+                                    {colors.map((color) =>
+                                            <ColorPicker
+                                                color ={color}
+                                                handleColor= {setColor}
+                                                key={color.hex}
+                                                n={color.n}/>
+                                    )}
+                                    </ul>
+                            </div> 
+                            <button className="gButton" onClick={HandleColorNickChangebyUser} >Continue</button>
+                            </>
+                            ) : (
+                            <>
+                            <h1 className="text-title white">Lorem Ipsum Dolor </h1>
+                            <h3 className="white"> Lorem ipsum dolor sir amet, consectetur adipiscing elit </h3>        
+                            <button  className="gButton" onClick={handleLoginGoogle}>
+                                <img  className="log-in" src={black} alt="Login with Google"/>
+                            </button>
+                            </>
+                            )}
+                        </div>
 
-                <div className="position">
-                    <p>© 2020 Devs_United -  <span>BETA</span> </p>  
-                </div>
-                
-            </div>
-              
-            </div>
-            
-        </div>
+                        <div className="position">
+                            <p>© 2020 Devs_United -  <span>BETA</span> </p>  
+                        </div>
+                    </div>
+                </div>  
+            </section>
+        </LoadingOverlay>
+    );
+};
 
-       
-    )
-}
-
-export default Main;
+export default LoginWelcome;
