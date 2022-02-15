@@ -12,7 +12,7 @@ import {auth} from '../Firebase.js';
 
 function UserMainPageFav() {
 
-    const {user, setAuthenticated, setUser, tweets,likeTweet, getUserPhoto, getUserNick, countFavorites, FavoritesPerUser} = useContext(AppFirebaseContext);
+    const {user, setAuthenticated, setUser, tweets,likeTweet, getUserPhoto, getUserNick, countFavorites, favoritesFeed, FavoritesPerUser, getTweetFavs} = useContext(AppFirebaseContext);
 
     let navigate = useNavigate();
 
@@ -72,65 +72,59 @@ function UserMainPageFav() {
                             </div>
                     </section>
             
-                <section className="tweet-cont flex">  
-
-
+                <section className="tweet-cont flex">      
             
-            
-            {tweets.map((tweet) => {
-               
-                //DA FORMATO A LA FECHA DE FIREBASE PARA MOSTRARLA EN FORMATO LOCAL
-                const format = (dates, locale, options) =>
-                    new Intl.DateTimeFormat(locale,options).format(dates)
-                let date = tweet.dateCreated.toDate()
-                const posted = format(date,'es', { day: 'numeric', month: 'short' });                
-               
-                          
-               return (   
-               
-                <div key={FavoritesPerUser(user.uid)}>
-                    <div className="tweet-cont-ind flex" key={tweet.id} > 
-                        <div className="photo-space">
-                            {tweet.photoURL === "" ?
-                             <img className="profile-img" src={defaultPhoto} alt="profile pic"/>
-                             :  <img className="profile-img" src={tweet.photoURL} alt="profile pic"/> }
-                        </div>
-                         <div className="text-cont"> 
-                         <div className="user-date flex">                       
-                            <p className="username" style={getBgStyle(tweet.colorPick)}>{tweet.autor}</p>       
-                            <span>  -{posted}.</span>
-                            </div>
-
-                        <div className='flex tweet-space'>
-                            <p>{tweet.tweet}</p>
-                        </div>
-                    <div>
-            
-                    {tweet.userId !== user.uid ?
+                    {tweets.map((tweet) => {
+                    
+                        //DA FORMATO A LA FECHA DE FIREBASE PARA MOSTRARLA EN FORMATO LOCAL
+                        const format = (dates, locale, options) =>
+                            new Intl.DateTimeFormat(locale,options).format(dates)
+                        let date = tweet.dateCreated.toDate()
+                        const posted = format(date,'es', { day: 'numeric', month: 'short' });                
+                    
+                        const listfavorites = FavoritesPerUser(user.uid);
+                        console.log(listfavorites)
+                        return (   
                         
-                        <span onClick={() => likeTweet(user.uid, tweet.id)} className="flex" >
-                        <img className='heart' src={heartred} alt="" />
-                        <span className='likes flex'>{countFavorites(tweet.id)}    </span>
-                
-                        </span>
-                        : 
-                        <span className='flex'>
-                        <img className='heart flex' src={heartwhite} alt="" />
-                        <span className='likes flex'>{countFavorites(tweet.id)}    </span>
-                        </span>
-                        }
-                         <p className="email-text">{tweet.email}</p>
-                    </div>
-                    </div>
-                </div>
-                </div>
-              );
-            })} 
+                            <div>
+                                <div className="tweet-cont-ind flex" key={tweet.id} > 
+                                    <div className="photo-space">
+                                        {tweet.photoURL === "" ?
+                                            <img className="profile-img" src={defaultPhoto} alt="profile pic"/>:
+                                            <img className="profile-img" src={tweet.photoURL} alt="profile pic"/> 
+                                        }
+                                    </div>
+                                    <div className="text-cont"> 
+                                        <div className="user-date flex">                       
+                                            <p className="username" style={getBgStyle(tweet.colorPick)}>{tweet.autor}</p>       
+                                            <span>  -{posted}.</span>
+                                        </div>
+                                        <div className='flex tweet-space'>
+                                            <p>{tweet.tweet}</p>
+                                        </div>
+                                        <div>
+                                            {tweet.userId !== user.uid ?
+                                            
+                                                <span onClick={() => likeTweet(user.uid, tweet.id)} className="flex" >
+                                                    <img className='heart' src={heartred} alt="" />
+                                                    <span className='likes flex'>{countFavorites(tweet.id)}</span>
+                                                </span>
+                                                : 
+                                                <span className='flex'>
+                                                    <img className='heart flex' src={heartwhite} alt="" />
+                                                    <span className='likes flex'>{countFavorites(tweet.id)}</span>
+                                                </span>
+                                            }
+                                            <p className="email-text">{tweet.email}</p>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>                          
+                        );
+                    })}      
+                </section>
             </section>
-            
-           
-        </section>
-      );
-}
+         );
+};
 
 export default UserMainPageFav;
