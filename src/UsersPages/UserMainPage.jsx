@@ -75,7 +75,9 @@ function UserMainPage() {
            
             <section className="tweet-cont flex">  
 
-                {tweets.map((tweet) => {
+                
+                {tweets.map((tweet) => { // eslint-disable-line array-callback-return
+                    
                     if(tweet.userId === user.uid) {
                     //DA FORMATO A LA FECHA DE FIREBASE PARA MOSTRARLA EN FORMATO LOCAL
                     const format = (dates, locale, options) =>
