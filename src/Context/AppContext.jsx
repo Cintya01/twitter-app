@@ -172,14 +172,15 @@ export default function FirebaseProvider({ children }) {
 
 // filtra los tweets por el user del tweet y obtiene el uid del usuario que dio Like
     function FavoritesPerUser (userID) {
-        let userFavs = favoritesFeed.filter((element) => element.userId === userID); //con este filtro el userID
-        return userFavs           
+        let userFavs = favoritesFeed.filter((element) => element.userId === userID);//con este filtro el userID
+        let favouriteTweetsIds = []
+        for(let element of userFavs){
+            favouriteTweetsIds.push(element.tweetId)
+        }
+        return favouriteTweetsIds
     };
 
-    function getTweetFavs (IDtweet) {
-       
-       
-    }
+
 
     
 // Si userID es igual a user.uid, entonces trae los tweets con ese userID        
@@ -244,7 +245,6 @@ return (
         favoritesFeed,
         countFavorites,
         FavoritesPerUser,
-        getTweetFavs
         }} >
         {children}
     </AppFirebaseContext.Provider>

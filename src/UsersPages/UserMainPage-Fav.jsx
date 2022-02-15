@@ -12,7 +12,7 @@ import {auth} from '../Firebase.js';
 
 function UserMainPageFav() {
 
-    const {user, setAuthenticated, setUser, tweets,likeTweet, getUserPhoto, getUserNick, countFavorites, favoritesFeed, FavoritesPerUser, getTweetFavs} = useContext(AppFirebaseContext);
+    const {user, setAuthenticated, setUser, tweets,likeTweet, getUserPhoto, getUserNick, countFavorites, FavoritesPerUser} = useContext(AppFirebaseContext);
 
     let navigate = useNavigate();
 
@@ -46,6 +46,8 @@ function UserMainPageFav() {
         }
     }
 
+    const listfavorites = FavoritesPerUser(user.uid);
+
         return (
             <section>
                     <div className="header-cont flex">
@@ -75,6 +77,7 @@ function UserMainPageFav() {
                 <section className="tweet-cont flex">      
             
                     {tweets.map((tweet) => {
+                        if(!listfavorites.includes(tweet.id)) return null;
                     
                         //DA FORMATO A LA FECHA DE FIREBASE PARA MOSTRARLA EN FORMATO LOCAL
                         const format = (dates, locale, options) =>
@@ -82,8 +85,7 @@ function UserMainPageFav() {
                         let date = tweet.dateCreated.toDate()
                         const posted = format(date,'es', { day: 'numeric', month: 'short' });                
                     
-                        const listfavorites = FavoritesPerUser(user.uid);
-                        console.log(listfavorites)
+
                         return (   
                         
                             <div>
