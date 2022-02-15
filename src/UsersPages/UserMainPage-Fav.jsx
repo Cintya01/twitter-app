@@ -1,13 +1,13 @@
-import '../src/Styles/App.css';
-import { AppFirebaseContext } from "./Context/AppContext";
+import '../Styles/App.css';
+import { AppFirebaseContext } from "../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 import React, {useContext} from 'react';
-import defaultPhoto from "../src/Resources/svg/profilePicDefault.svg";
-import heartred from "../src/Resources/svg/heart_red.svg";
-import heartwhite from "../src/Resources/svg/heart_white.svg";
-import LogoutPic from "../src/Resources/svg/logout.svg" 
-import back from "../src/Resources/svg/back.svg";
-import {auth} from './Firebase.js';
+import defaultPhoto from "../Resources/svg/profilePicDefault.svg";
+import heartred from "../Resources/svg/heart_red.svg";
+import heartwhite from "../Resources/svg/heart_white.svg";
+import LogoutPic from "../Resources/svg/logout.svg" 
+import back from "../Resources/svg/back.svg";
+import {auth} from '../Firebase.js';
 
 
 function UserMainPageFav() {
@@ -18,22 +18,20 @@ function UserMainPageFav() {
 
     function handleClick() {        
         navigate("/Twitter");        
-    }
-    if(!user) {
+    }if(!user) {
         navigate("/");
     }
 
     function handlePost() {
         navigate("/UserMainPage")
     }
-
     
     let logout = () => {
         setAuthenticated(false);
         setUser(null);
         auth.signOut();
         navigate("/");
-     }
+    }
 
     let getBgStyle = (colorHex)  => {
         return {
@@ -48,54 +46,46 @@ function UserMainPageFav() {
         }
     }
 
-      return (
-        <section>
-            <div className="header-cont flex">
-        <nav className="header-nav-cont space-around flex">
-            <div className='flex center'>
-        <img className="svg-usermainpage" src={back} onClick={handleClick} alt="Back" />
-        <p className="silk-font" > {getUserNick(user)}  </p> 
-        </div>
-            
-            <button className="logout-btn flex silk-font" onClick={logout}>Logout
-            <img className="svg-usermainpage flex" src={LogoutPic} alt="LogOut" />
-            </button>
-        </nav>
-        </div>
-            <div className="form-cont">
-            <img className="usermainpage" src={getUserPhoto(user)} style={getBgPhotoStyle(user.colorPick)} alt="Profile Pic"/>
-            <div className='color-nickname center flex silk-font'>
-            <p style={getBgStyle(user.colorPick)}> {getUserNick(user)}  </p> 
-            </div>
-
-          
-               </div>
-             <section>
-                    <div className='flex center color'>       
-                        <button type="button"  onClick={handlePost} className="btn-post-user silk-font"> POST</button>
-                        <button type="button" className= "btn-post-user silk-font selected" >FAVORITES</button> 
+        return (
+            <section>
+                    <div className="header-cont flex">
+                        <nav className="header-nav-cont space-around flex">
+                            <div className='flex center'>
+                                <img className="svg-usermainpage" src={back} onClick={handleClick} alt="Back" />
+                                <p className="silk-font" > {getUserNick(user)}  </p> 
+                            </div>
+                            <button className="logout-btn flex silk-font" onClick={logout}>Logout
+                                <img className="svg-usermainpage flex" src={LogoutPic} alt="LogOut" />
+                            </button>
+                        </nav>
                     </div>
-             </section>
-           
-            <section className="tweet-cont flex">  
+                    <div className="form-cont">
+                        <img className="usermainpage" src={getUserPhoto(user)} style={getBgPhotoStyle(user.colorPick)} alt="Profile Pic"/>
+                        <div className='color-nickname center flex silk-font'>
+                            <p style={getBgStyle(user.colorPick)}>{getUserNick(user)}</p> 
+                        </div>
+                    </div>
+                    <section>
+                            <div className='flex center color'>       
+                                <button type="button"  onClick={handlePost} className="btn-post-user silk-font"> POST</button>
+                                <button type="button" className= "btn-post-user silk-font selected" >FAVORITES</button> 
+                            </div>
+                    </section>
+            
+                <section className="tweet-cont flex">  
 
 
             
             
             {tweets.map((tweet) => {
                
+                //DA FORMATO A LA FECHA DE FIREBASE PARA MOSTRARLA EN FORMATO LOCAL
+                const format = (dates, locale, options) =>
+                    new Intl.DateTimeFormat(locale,options).format(dates)
+                let date = tweet.dateCreated.toDate()
+                const posted = format(date,'es', { day: 'numeric', month: 'short' });                
                
-               
-        
-        //DA FORMATO A LA FECHA DE FIREBASE PARA MOSTRARLA EN FORMATO LOCAL
-        const format = (dates, locale, options) =>
-                new Intl.DateTimeFormat(locale,options).format(dates)
-        let date = tweet.dateCreated.toDate() 
-
-    
-        const posted = format(date,'es', { day: 'numeric', month: 'short' });  
-
-                    
+                          
                return (   
                
                 <div key={FavoritesPerUser(user.uid)}>

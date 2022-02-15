@@ -1,14 +1,14 @@
-import '../src/Styles/App.css';
-import { AppFirebaseContext } from "./Context/AppContext";
+import '../Styles/App.css';
+import { AppFirebaseContext } from "../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 import React, {useContext} from 'react';
-import borrar from "../src/Resources/svg/delete.svg";
-import defaultPhoto from "../src/Resources/svg/profilePicDefault.svg";
-import heartred from "../src/Resources/svg/heart_red.svg";
-import heartwhite from "../src/Resources/svg/heart_white.svg";
-import LogoutPic from "../src/Resources/svg/logout.svg" 
-import back from "../src/Resources/svg/back.svg";
-import {auth} from './Firebase.js';
+import borrar from "../Resources/svg/delete.svg";
+import defaultPhoto from "../Resources/svg/profilePicDefault.svg";
+import heartred from "../Resources/svg/heart_red.svg";
+import heartwhite from "../Resources/svg/heart_white.svg";
+import LogoutPic from "../Resources/svg/logout.svg" 
+import back from "../Resources/svg/back.svg";
+import {auth} from '../Firebase';
 
 
 function UserMainPage() {
