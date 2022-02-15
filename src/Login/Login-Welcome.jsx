@@ -13,7 +13,7 @@ import {firestore} from '../Firebase.js';
 import LoadingOverlay from 'react-loading-overlay';
 
 
-function Main() {
+function LoginWelcome() {
 
     const {user, authenticated, nickName,  changeUsername, setColorPick, colorPick, loading, setLoading} = useContext(AppFirebaseContext)
     const [colors, setColors] = useState(colorHexList);
@@ -148,4 +148,4 @@ function Main() {
     )
 }
 
-export default Main;
+export default LoginWelcome;

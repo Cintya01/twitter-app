@@ -9,6 +9,7 @@ export const AppFirebaseContext = createContext();
 export default function FirebaseProvider({ children }) {
 
     const [loading, setLoading] =useState(false)
+    const [favoritesFeed, setFavoriteFeed] = useState([]);
     const [user, setUser] = useState(null);
     const [authenticated, setAuthenticated] = useState(false); 
     const [nickName, setNickName] = useState("");
@@ -101,12 +102,12 @@ useEffect(() => {
                 
             firestore.collection("Tweets-s4").add(tweet)
             setTweet({  autor: "",
-                    tweet: "",
-                    dateCreated: "",
-                    likes: 0,
-                    userId: "",
-                    email: "",
-                colorPick:""});
+                        tweet: "",
+                        dateCreated: "",
+                        likes: 0,
+                        userId: "",
+                        email: "",
+                        colorPick:""});
     
             };
     
@@ -134,12 +135,53 @@ useEffect(() => {
                 });
               };
 
-    
-            const likeTweet = (id, likes) => {
-                if (!likes) likes = 0;
-                firestore.doc (`Tweets-s4/${id}`).update({likes: likes + 1});
+            //Envía Id de tweet e Id Usuario a Firestore Collection.
+
+            let likeTweet = ( userId, tweetId) => {
+                let like = {
+                    tweetId: tweetId,
+                    userId: userId
+                };
+            firestore.collection("FavoriteTweet").add(like)    
+            };
+
+              //Trae data de usuario e id de Favorites Feed
+
+              useEffect (() => {  
+                const unsuscribe = firestore
+                .collection("FavoriteTweet")
+                .onSnapshot((snapshot) => {
+                   const fav = snapshot.docs.map((doc) => {
+                        return {
+                            tweetId:doc.data().tweetId,
+                            userId:doc.data().userId
+                        };
+                    });
+                     setFavoriteFeed(fav);
+                  });
+                  return () => unsuscribe();
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+                },[]);  
+
+
+                  //filtrar tweets por el id de tweet y los asigna como contador al usuario
+        function countFavorites(tweetID){
+            let filteredList = favoritesFeed.filter((element) => element.tweetId === tweetID ); 
+            return filteredList.length
+        };
+
+        // filtra los tweets por el user del tweet y obtiene el uid del usuario que dio Like
+        function FavoritesPerUser (userID) {
+            let userFavs = favoritesFeed.filter((element) => element.userId === userID);
+            return userFavs.lenght            
             }
 
+           
+
+
+          
+              
+// Si userID es igual a user.uid, entonces trae los tweets con ese userID        
       
              const getUserPhoto = (user)=>{
                 if(user && user.photoURL){
@@ -196,7 +238,12 @@ return (
         setLoading,
         selectedOtherUser,
         setSelectedOtherUser,
-        getUserByID
+        getUserByID,
+        setFavoriteFeed,
+        favoritesFeed,
+        countFavorites,
+        FavoritesPerUser,
+      
         }} >
         {children}
     </AppFirebaseContext.Provider>

@@ -11,7 +11,7 @@ import heartwhite from "../src/Resources/svg/heart_white.svg"
 
 function Twitter() {
 
-    const {user, tweets, setTweet, sendTweet, showDeletePopUp,likeTweet, tweet, getUserPhoto, checkedLike,getUserByID,selectedOtherUser} = useContext(AppFirebaseContext);
+    const {user, tweets, setTweet, sendTweet, showDeletePopUp,likeTweet, tweet, getUserPhoto, getUserByID, selectedOtherUser, countFavorites} = useContext(AppFirebaseContext);
     let [letterCount, setLetterCount] = useState(0);
 
     let navigate = useNavigate();
@@ -102,6 +102,9 @@ function Twitter() {
                 new Intl.DateTimeFormat(locale,options).format(dates)
         let date = tweet.dateCreated.toDate()
         
+        const posted = format(date,'es', { day: 'numeric', month: 'short' });  
+
+        //DA COLOR AL NOMBRE 
 
         let getBgStyle = (colorHex)  => {
             return {
@@ -109,11 +112,7 @@ function Twitter() {
                 boxShadow: '0 4px 0px -2px '+colorHex
             }
         }
-
-        const posted = format(date,'es', { day: 'numeric', month: 'short' });  
-       
-                      
-                      
+                   
                return (   
                              
                     <div className="tweet-cont-ind flex" key={tweet.id}>
@@ -141,14 +140,15 @@ function Twitter() {
             
                         {tweet.userId !== user.uid ?
                         
-                        <span onClick={() => likeTweet(tweet.id, tweet.likes)} onChange={checkedLike} className="flex" >
+                        <span onClick={() => likeTweet(user.uid, tweet.id)} className="flex" >
                         <img className='heart' src={heartred} alt="" />
-                        <span className='likes flex'>{tweet.likes ? tweet.likes : 0}    </span>
+                        <span className='likes flex'>{countFavorites(tweet.id)}    </span>
+                
                         </span>
                         : 
                         <span className='flex'>
                         <img className='heart flex' src={heartwhite} alt="" />
-                        <span className='likes flex'>{tweet.likes}    </span>
+                        <span className='likes flex'>{countFavorites(tweet.id)}    </span>
                         </span>
                         }
                          <p className="email-text">{tweet.email}</p>
